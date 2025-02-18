@@ -20,6 +20,7 @@ public class MedicalHistory {
 
     private String reason;
 
+    @Enumerated(EnumType.STRING)
     private MedicalHistoryStatus status;
 
     private Date createdAt;

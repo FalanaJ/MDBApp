@@ -34,6 +34,7 @@ public class Patient {
     @NotNull(message = "Data urodzenia nie może być pusta.")
     private LocalDate dateOfBirth;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Wybór płci jest obowiązkowy.")
     private Gender gender;
 
