@@ -33,6 +33,10 @@ header nav ul li a {
     transition: all 0.3s ease;
 }
 
+.centered-heading {
+    text-align: center;
+}
+
 header nav ul li a {
     display: block;
     padding: 5px;
@@ -48,73 +52,82 @@ header nav ul li a img {
     display: block;
 }
 
-.centered-heading {
-    text-align: center;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
 }
 
-form {
-    border: 2px solid #4ab7b8;
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #e8f1f2;
-    border-radius: 10px;
+th {
+    background: linear-gradient(to right, #37b1ab, #55b7b8);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #4ab7b8;
+    font-size: 14px;
 }
 
-.validationError{
-    color: red;
-    font-weight: bold;
+tr:nth-child(odd) {
+    background-color: #9de0e1;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="radio"] {
-    width: 100%;
+tr:nth-child(even) {
+    background-color: #94d3d4;
+}
+
+tr:hover {
+    background-color: #51bdbf;
+    transition: all 0.3s ease;
+}
+
+td, th {
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
 }
 
-input[type="radio"] {
-    width: auto;
-    margin-right: 10px;
-}
-
-.gender-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.gender-container input[type="radio"] {
+body {
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-button {
-    width: 100%;
+.table-container {
+    max-width: 98%;
+    margin: 5px auto;
+    overflow-x: auto;
+}
+
+.btn{
+    width: 90%;
     padding: 12px;
     background-color: #49bfb9;
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     text-decoration: none;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
 }
 
-button:hover {
+.btn:hover{
     background-color: #4ab7b8;
+}
+
+.patient-info {
+    border: 2px solid #4ab7b8;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 600px;
+    background-color: #e0f7f7;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

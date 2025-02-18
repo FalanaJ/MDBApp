@@ -92,6 +92,7 @@ tr:hover {
 
 td, th {
     padding: 10px;
+    border-radius: 5px;
 }
 
 body {
@@ -100,18 +101,21 @@ body {
 }
 
 .table-container {
-    max-width: 100%;
+    max-width: 98%;
+    margin: 5px auto;
     overflow-x: auto;
 }
 
 .btn{
-    width: 90%;
-    padding: 12px;
+    width: 70%;
+    padding: 8px;
+    font-size: 12px;
     background-color: #49bfb9;
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 13px;
+    text-decoration: none;
+    font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
 }
