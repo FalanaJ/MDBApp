@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MDB - add patient</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/patientFormStyle.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">
+                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
+            </a></li>
+
+            <li><a href="/addPatient">
+                <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
+            </a></li>
+
+            <li><a href="/patientsList">
+                <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
+            </a></li>
+
+            <li><a href="/addDoctor">
+                <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
+            </a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1 class="centered-heading">Panel dodawania nowego pacjenta</h1>
+
+    <form method="post" th:object="${patient}">
+
+        <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">
+                Usuń wymienione problemy i spróbuj ponownie.
+            </span>
+        </div><br>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+            </span>
+            <label for="firstName">Imię:</label>
+            <input type="text" th:field="*{firstName}" id="firstName"/>
+        </div>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+            </span>
+            <label for="lastName">Nazwisko:</label>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+        </div>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Name Error</td>
+            </span>
+            <label for="dateOfBirth">Data urodzenia:</label>
+            <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth"/>
+        </div>
+
+
+        <span class="validationError">
+                <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Name Error</td>
+        </span>
+        <label>Płeć:</label>
+        <div class="gender-container">
+            <input type="radio" th:field="*{gender}" value="FEMALE" id="female" name="gender"/>
+            <label for="female">Kobieta</label>
+            <input type="radio" th:field="*{gender}" value="MALE" id="male" name="gender"/>
+            <label for="male">Mężczyzna</label>
+        </div><br>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('peselNumber')}" th:errors="*{peselNumber}">Name Error</td>
+            </span>
+            <label for="peselNumber">Numer PESEL:</label>
+            <input type="text" th:field="*{peselNumber}" id="peselNumber"/>
+        </div>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Name Error</td>
+            </span>
+            <label for="address">Adres zamieszkania:</label>
+            <input type="text" th:field="*{address}" id="address"/>
+        </div>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Name Error</td>
+            </span>
+            <label for="phoneNumber">Numer telefonu:</label>
+            <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/>
+        </div>
+
+        <div>
+            <span class="validationError">
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
+            </span>
+            <label for="email">Email:</label>
+            <input type="text" th:field="*{email}" id="email"/>
+        </div>
+
+        <button type="submit">Dodaj pacjenta</button>
+    </form>
+</main>
+</body>
+</html>

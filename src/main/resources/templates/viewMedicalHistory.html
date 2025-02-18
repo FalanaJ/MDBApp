@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MDB - view medical history</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/patientListStyle.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">
+                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
+            </a></li>
+
+            <li><a href="/addPatient">
+                <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
+            </a></li>
+
+            <li><a href="/patientsList">
+                <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
+            </a></li>
+
+            <li><a href="/addDoctor">
+                <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
+            </a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h2>Historia medyczna pacjenta: <span th:text="${patient.firstName}"> </span><span th:text="${patient.lastName}"></span></h2>
+    <h4>PESEL: <span th:text="${patient.peselNumber}"></span></h4>
+    <a href="/patientsList" class="btn">Powrót do listy pacjentów</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Lp.</th>
+            <th>Data spotkania</th>
+            <th>Status</th>
+            <th>Powód</th>
+            <th>Data dodania</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="history : ${medicalHistories}">
+            <td th:text="${history.id}"></td>
+            <td th:text="${history.dateOfAppointment}"></td>
+            <td th:text="${history.status}"></td>
+            <td th:text="${history.reason}"></td>
+            <td th:text="${history.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

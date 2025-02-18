@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MDB - patients list</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/patientListStyle.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">
+                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
+            </a></li>
+
+            <li><a href="/addPatient">
+                <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
+            </a></li>
+
+            <li><a href="/patientsList">
+                <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
+            </a></li>
+
+            <li><a href="/addDoctor">
+                <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
+            </a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="centered-heading">Panel widoku pacjentów w bazie danych</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Lp.</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Data urodzenia</th>
+            <th>Płeć</th>
+            <th>PESEL</th>
+            <th>Numer telefonu</th>
+            <th>Email</th>
+            <th>Adres zamieszkania</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+            <td th:text="${patient.firstName}"></td>
+            <td th:text="${patient.lastName}"></td>
+            <td th:text="${patient.dateOfBirth}"></td>
+            <td th:text="${patient.gender}"></td>
+            <td th:text="${patient.peselNumber}"></td>
+            <td th:text="${patient.phoneNumber}"></td>
+            <td th:text="${patient.email}"></td>
+            <td th:text="${patient.address}"></td>
+            <td><a th:href="@{/addMedicalHistory(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
+            <a th:href="@{/viewMedicalHistory(patientId=${patient.id})}" class="btn">Przeglądaj wpisy</a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

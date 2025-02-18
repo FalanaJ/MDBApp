@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MDB - add medical history</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/medicalHistoryFormStyle.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/home">
+                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
+            </a></li>
+
+            <li><a href="/addPatient">
+                <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
+            </a></li>
+
+            <li><a href="/patientsList">
+                <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
+            </a></li>
+
+            <li><a href="/addDoctor">
+                <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
+            </a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="centered-heading">Panel dodawania wpisu medycznego do pacjenta</h1>
+
+    <form th:action="@{/home}" method="post" th:object="${medicalHistory}">
+
+        <input type="hidden" name="patientId" th:value="${patientId}" />
+
+        <label for="dateOfAppointment">Data wizyty:</label>
+        <input type="date" id="dateOfAppointment" th:field="*{dateOfAppointment}" required />
+
+        <label for="reason">Powód wizyty:</label>
+        <input type="text" id="reason" th:field="*{reason}" required />
+
+        <label>Status:</label>
+        <div class="status-container">
+            <input type="radio" th:field="*{status}" value="SCHEDULED" id="scheduled" name="status"/>
+            <label for="scheduled">Zaplanowana</label>
+            <input type="radio" th:field="*{status}" value="COMPLETED" id="completed" name="status"/>
+            <label for="completed">Zakończona</label>
+            <input type="radio" th:field="*{status}" value="CANCELED" id="canceled" name="status"/>
+            <label for="canceled">Odwołana</label>
+        </div><br>
+
+        <button type="submit">Dodaj wpis do pacjenta</button>
+    </form>
+
+</main>
+</body>
+</html>
