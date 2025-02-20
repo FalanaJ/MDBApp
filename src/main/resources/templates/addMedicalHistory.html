@@ -35,27 +35,35 @@
 <main>
     <h1 class="centered-heading">Panel dodawania wpisu medycznego do pacjenta</h1>
 
-    <form th:action="@{/home}" method="post" th:object="${medicalHistory}">
+    <form method="post" th:action="@{/viewMedicalHistory(patientId=${patientId})}" th:object="${medicalHistory}">
+
+        <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
+        </div><br>
 
         <input type="hidden" name="patientId" th:value="${patientId}" />
 
-        <label for="dateOfAppointment">Data wizyty:</label>
-        <input type="date" id="dateOfAppointment" th:field="*{dateOfAppointment}" required />
+        <div>
+            <label for="dateOfAppointment">Data wizyty:</label>
+            <input type="date" id="dateOfAppointment" th:field="*{dateOfAppointment}" required />
+        </div>
 
-        <label for="reason">Powód wizyty:</label>
-        <input type="text" id="reason" th:field="*{reason}" required />
+        <div>
+            <label for="reason">Powód wizyty:</label>
+            <input type="text" id="reason" th:field="*{reason}" required minlength="3"/>
+        </div>
 
         <label>Status:</label>
         <div class="status-container">
-            <input type="radio" th:field="*{status}" value="SCHEDULED" id="scheduled" name="status"/>
+            <input type="radio" th:field="*{status}" value="SCHEDULED" id="scheduled" name="status" required/>
             <label for="scheduled">Zaplanowana</label>
-            <input type="radio" th:field="*{status}" value="COMPLETED" id="completed" name="status"/>
+            <input type="radio" th:field="*{status}" value="COMPLETED" id="completed" name="status" required/>
             <label for="completed">Zakończona</label>
-            <input type="radio" th:field="*{status}" value="CANCELED" id="canceled" name="status"/>
+            <input type="radio" th:field="*{status}" value="CANCELED" id="canceled" name="status" required/>
             <label for="canceled">Odwołana</label>
         </div><br>
 
-        <button type="submit">Dodaj wpis do pacjenta</button>
+        <button type="submit">Dodaj wpis do pacjenta </button>
     </form>
 
 </main>

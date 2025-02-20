@@ -32,9 +32,12 @@
     </nav>
 </header>
 <main>
+    <input type="hidden" name="patientId" th:value="${patientId}"/>
+
     <div class="patient-info">
         <h2>Historia medyczna pacjenta: <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span></h2>
         <h4>PESEL: <span th:text="${patient.peselNumber}"></span></h4>
+        <a th:href="@{/addMedicalHistory(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
         <a href="/patientsList" class="btn">Powrót do listy pacjentów</a>
     </div>
 

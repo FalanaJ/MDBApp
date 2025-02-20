@@ -3,19 +3,14 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.medicalhistory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.MedicalHistory;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalHistoryService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
-
 import java.util.Date;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,8 +27,9 @@ public class MedicalHistoryFormController {
         return "addMedicalHistory";
     }
 
-    @PostMapping("/home")
-    public String processAddNewMedicalHistoryForm(@Valid MedicalHistory medicalHistory, @RequestParam("patientId") Long patientId){
+    @PostMapping("viewMedicalHistory")
+    public String processAddNewMedicalHistoryForm(@Valid @ModelAttribute("medicalHistory") MedicalHistory medicalHistory,
+                                                  @RequestParam("patientId") Long patientId){
 
         Patient patient = patientService.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Nie ma takiego pacjenta w bazie pacjentów"));
@@ -43,7 +39,6 @@ public class MedicalHistoryFormController {
         medicalHistoryService.save(medicalHistory);
 
         log.info("Nowy wpis medyczny został dodany " + medicalHistory);
-        return "home";
+        return "redirect:/viewMedicalHistory?patientId=" + patientId;
     }
-
 }
