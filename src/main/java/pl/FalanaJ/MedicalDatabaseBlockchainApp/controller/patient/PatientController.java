@@ -1,5 +1,6 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.patient;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Patient;
@@ -9,12 +10,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/patients")
+@RequiredArgsConstructor
 public class PatientController {
     private final PatientService patientService;
-
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatient(@PathVariable Long id){
@@ -33,10 +31,5 @@ public class PatientController {
     public Patient addPatient(@RequestBody Patient patient){
         return patientService.save(patient);
     }
-
-
-
-
-
 
 }
