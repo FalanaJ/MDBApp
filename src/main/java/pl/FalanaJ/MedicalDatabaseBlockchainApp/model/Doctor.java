@@ -41,6 +41,7 @@ public class Doctor{
 
     private Date createdAt;
 
+    //TODO pole do dodania
     private String harmonogram;
     //harmonogram (every Monday and Friday etc.) będzie potem
 }

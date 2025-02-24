@@ -28,12 +28,34 @@
             <li><a href="/addDoctor">
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
+
+            <li><a href="/doctorsList">
+                <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
+            </a></li>
         </ul>
     </nav>
 </header>
 
 <main>
     <h1 class="centered-heading">Panel administracyjny</h1>
+    <div class="container">
+        <a href="/addPatient" class="tile">
+            <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
+            <div>Dodaj pacjenta</div>
+        </a>
+        <a href="/patientsList" class="tile">
+            <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
+            <div>Lista pacjentów</div>
+        </a>
+        <a href="/addDoctor" class="tile">
+            <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
+            <div>Dodaj doktora</div>
+        </a>
+        <a href="/doctorsList" class="tile">
+            <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
+            <div>Lista doktorów</div>
+        </a>
+    </div>
 </main>
 </body>
 </html>

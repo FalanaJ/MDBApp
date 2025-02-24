@@ -7,7 +7,6 @@ INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Marcin', 'Lewandowski', '1982-09-18', 'MALE', '82091887654', '556677889', 'marcin.lewandowski@example.com', 'ul. Wrocławska 20, Poznań');
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Katarzyna', 'Kamińska', '1995-04-14', 'FEMALE', '95041433456', '998877665', 'katarzyna.kaminska@example.com', 'ul. Lipowa 7, Kraków');
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Adam', 'Szymański', '1976-08-03', 'MALE', '76080365789', '445566778', 'adam.szymanski@example.com', 'ul. Polna 9, Warszawa');
-INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Magdalena', 'Jankowska', '1994-11-28', 'FEMALE', '94112822345', '123123123', 'magdalena.jankowska@example.com', 'ul. Biała 4, Gdańsk');
 
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-01', 'Routine checkup', 'COMPLETED', '2025-02-01', 1);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-05', 'Flu symptoms', 'SCHEDULED', '2025-02-05', 2);
@@ -18,7 +17,6 @@ INSERT INTO medical_history (date_of_appointment, reason, status, created_at, pa
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-20', 'Skin rash', 'SCHEDULED', '2025-02-20', 7);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-22', 'Routine checkup', 'CANCELED', '2025-02-22', 8);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-25', 'Sore throat', 'COMPLETED', '2025-02-25', 9);
-INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-02-28', 'Eye test', 'SCHEDULED', '2025-02-28', 10);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-01', 'Annual checkup', 'COMPLETED', '2025-03-01', 1);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-03', 'Chest pain', 'SCHEDULED', '2025-03-03', 2);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-05', 'Fever', 'CANCELED', '2025-03-05', 3);
@@ -28,5 +26,8 @@ INSERT INTO medical_history (date_of_appointment, reason, status, created_at, pa
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-15', 'Blood test', 'COMPLETED', '2025-03-15', 7);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-18', 'Flu symptoms', 'SCHEDULED', '2025-03-18', 8);
 INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-20', 'Allergy checkup', 'COMPLETED', '2025-03-20', 9);
-INSERT INTO medical_history (date_of_appointment, reason, status, created_at, patient_id) VALUES ('2025-03-22', 'Routine blood pressure check', 'SCHEDULED', '2025-03-22', 10);
+
+INSERT INTO doctors (first_name, last_name, speciality, phone_number, email, address) VALUES ('Jan', 'Motyl', 'Kardiolog', '123456789', 'jan.motyl@example.com', 'ul. Przykładowa 10, 00-001 Warszawa');
+INSERT INTO doctors (first_name, last_name, speciality, phone_number, email, address) VALUES ('Anna', 'Nowak', 'Pediatra', '987654321', 'anna.nowak@example.com', 'ul. Przykładowa 20, 00-002 Warszawa');
+INSERT INTO doctors (first_name, last_name, speciality, phone_number, email, address) VALUES ('Marek', 'Zielinski', 'Chirurg', '456123789', 'marek.zielinski@example.com', 'ul. Przykładowa 30, 00-003 Warszawa');
 
