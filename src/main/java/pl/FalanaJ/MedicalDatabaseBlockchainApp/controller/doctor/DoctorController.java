@@ -29,7 +29,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public Doctor addPatient(@RequestBody Doctor doctor){
+    public Doctor addDoctor(@RequestBody Doctor doctor){
         return doctorService.save(doctor);
     }
 }

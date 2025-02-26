@@ -16,7 +16,7 @@ public class DoctorListController {
     private final DoctorService doctorService;
 
     @GetMapping("/doctorsList")
-    public String getAllPatientsView(Model model) {
+    public String getAllDoctorsView(Model model) {
         List<Doctor> doctors = doctorService.findAll();
         model.addAttribute("doctors", doctors);
         return "doctorsList";

@@ -1,6 +1,7 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +18,13 @@ public class MedicalHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    @JsonBackReference
+    private Doctor doctor;
+
+    private String doctorLastName;
 
     @NotNull(message = "Data spotkania nie może być pusta.")
     private LocalDate dateOfAppointment;
@@ -39,6 +47,7 @@ public class MedicalHistory {
     public String toString() {
         return "MedicalHistory{" +
                 "id=" + id +
+                ", doctor='" + doctorLastName + '\'' +
                 ", reason='" + reason + '\'' +
                 ", createdAt=" + createdAt +
                 '}';

@@ -47,6 +47,16 @@
 
         <input type="hidden" name="patientId" th:value="${patientId}" />
 
+        <div class="form-group">
+            <label for="doctor">Lekarz dodający wpis:</label>
+            <select id="doctor" th:field="*{doctor}" required>
+                <option value="">-- Wybierz lekarza --</option>
+                <option th:each="doc : ${doctors}" th:value="${doc.id}"
+                        th:text="${doc.id + '. ' + doc.firstName + ' ' + doc.lastName + ' - ' + doc.speciality}">
+                </option>
+            </select>
+        </div>
+
         <div>
             <label for="dateOfAppointment">Data wizyty:</label>
             <input type="date" id="dateOfAppointment" th:field="*{dateOfAppointment}" required />

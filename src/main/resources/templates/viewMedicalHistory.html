@@ -50,6 +50,7 @@
             <thead>
             <tr>
                 <th>Lp.</th>
+                <th>Lekarz</th>
                 <th>Data spotkania</th>
                 <th>Status</th>
                 <th>Data dodania</th>
@@ -59,6 +60,7 @@
             <tbody>
             <tr th:each="history : ${medicalHistories}">
                 <td th:text="${history.id}"></td>
+                <td th:text="${history.doctorLastName}"></td>
                 <td th:text="${history.dateOfAppointment}"></td>
                 <td th:text="${history.status}"></td>
                 <td th:text="${history.createdAt}"></td>
