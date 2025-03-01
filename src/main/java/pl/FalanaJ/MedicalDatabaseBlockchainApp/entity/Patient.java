@@ -1,4 +1,4 @@
-package pl.FalanaJ.MedicalDatabaseBlockchainApp.model;
+package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 
 
 import java.time.LocalDate;
@@ -54,6 +53,10 @@ public class Patient {
     private String address;
 
     private Date createdAt;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

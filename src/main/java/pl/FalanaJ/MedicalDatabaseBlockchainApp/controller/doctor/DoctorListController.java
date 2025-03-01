@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Doctor;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Doctor;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
 
 import java.util.List;

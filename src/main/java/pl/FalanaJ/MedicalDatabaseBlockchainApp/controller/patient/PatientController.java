@@ -3,7 +3,7 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Patient;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 
 import java.util.List;

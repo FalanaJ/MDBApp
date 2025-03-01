@@ -1,3 +1,5 @@
+
+
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Jan', 'Kowalski', '1985-03-15', 'MALE', '85031512345', '123456789', 'jan.kowalski@example.com', 'ul. Długa 5, Warszawa');
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Anna', 'Nowak', '1992-07-22', 'FEMALE', '92072267890', '987654321', 'anna.nowak@example.com', 'ul. Krótka 12, Kraków');
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, pesel_number, phone_number, email, address) VALUES ('Piotr', 'Wiśniewski', '1978-11-05', 'MALE', '78110534567', '564738291', 'piotr.wisniewski@example.com', 'ul. Szeroka 8, Gdańsk');

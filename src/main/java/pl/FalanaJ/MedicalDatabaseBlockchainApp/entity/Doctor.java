@@ -1,4 +1,4 @@
-package pl.FalanaJ.MedicalDatabaseBlockchainApp.model;
+package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -40,6 +40,10 @@ public class Doctor{
     private String address;
 
     private Date createdAt;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     //TODO pole do dodania
     private String harmonogram;

@@ -3,7 +3,7 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Doctor;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Doctor;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.DoctorRepository;
 
 import java.util.List;

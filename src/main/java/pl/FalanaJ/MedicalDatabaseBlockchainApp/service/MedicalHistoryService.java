@@ -1,15 +1,11 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.MedicalHistory;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Patient;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.MedicalHistory;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.MedicalHistoryRepository;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.PatientRepository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

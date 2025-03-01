@@ -1,7 +1,6 @@
-package pl.FalanaJ.MedicalDatabaseBlockchainApp.model;
+package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

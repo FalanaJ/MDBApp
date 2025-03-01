@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Doctor;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.MedicalHistory;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.model.Patient;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Doctor;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.MedicalHistory;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalHistoryService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import java.util.Date;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor

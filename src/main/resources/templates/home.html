@@ -32,12 +32,18 @@
             <li><a href="/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
+
+            <li><a href="/login">
+                <img th:src="@{/images/login.png}" width="40" height="40" alt="display-doctors-icon"/>
+            </a></li>
         </ul>
     </nav>
 </header>
 
 <main>
-    <h1 class="centered-heading">Panel administracyjny</h1>
+    <h1 class="centered-heading">Panel główny</h1>
+    <h1 class="centered-heading">Witaj, <span th:text="${username}"></span></h1>
+
     <div class="container">
         <a href="/addPatient" class="tile">
             <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
