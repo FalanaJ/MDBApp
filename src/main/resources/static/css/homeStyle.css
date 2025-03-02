@@ -86,3 +86,22 @@ header nav ul li a img {
 .tile img {
     margin-bottom: 10px;
 }
+
+.btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #49bfb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #4ab7b8;
+}

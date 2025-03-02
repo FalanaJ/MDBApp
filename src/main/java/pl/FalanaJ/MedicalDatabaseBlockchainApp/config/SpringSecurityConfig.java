@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.CustomUserDetailsService;
 
 @Configuration
@@ -24,9 +25,13 @@ public class SpringSecurityConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/css/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/js/**")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register")).permitAll() //POTEM TYLKO ADMIN
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/login")).permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/addPatient")).hasRole(Role.ADMIN.name())
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/addDoctor")).hasRole(Role.ADMIN.name())
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/patientsList")).hasRole(Role.ADMIN.name())
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/doctorsList")).hasRole(Role.ADMIN.name())
+                        .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -35,7 +40,10 @@ public class SpringSecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))

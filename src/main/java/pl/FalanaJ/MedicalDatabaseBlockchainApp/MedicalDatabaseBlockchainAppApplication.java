@@ -9,6 +9,5 @@ public class MedicalDatabaseBlockchainAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MedicalDatabaseBlockchainAppApplication.class, args);
 	}
-
 }
 
