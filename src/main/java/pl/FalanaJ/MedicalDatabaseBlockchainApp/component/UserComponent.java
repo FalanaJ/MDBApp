@@ -4,11 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.UserRepository;
 
@@ -23,14 +21,15 @@ public class UserComponent implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername("admin").isEmpty()
+                && userRepository.findByUsername("patient.patient@example.com").isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("adminpassword"));
             admin.setRole(Role.ADMIN);
 
             User patient = new User();
-            patient.setUsername("patient");
+            patient.setUsername("patient.patient@example.com");
             patient.setPassword(passwordEncoder.encode("patientpassword"));
             patient.setRole(Role.PATIENT);
 

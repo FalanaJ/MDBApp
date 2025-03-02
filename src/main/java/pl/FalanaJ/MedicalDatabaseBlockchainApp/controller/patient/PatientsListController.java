@@ -14,10 +14,10 @@ import java.util.List;
 public class PatientsListController {
 
     private final PatientService patientService;
-    @GetMapping("/patientsList")
+    @GetMapping("admin/patientsList")
     public String getAllPatientsView(Model model) {
         List<Patient> patients = patientService.findAll();
         model.addAttribute("patients", patients);
-        return "patientsList";
+        return "admin/patientsList";
     }
 }

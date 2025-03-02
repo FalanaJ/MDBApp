@@ -18,7 +18,7 @@
     <h2>Logowanie</h2>
     <form th:action="@{/login}" method="post">
         <div>
-            <label>Username:</label>
+            <label>Email:</label>
             <input type="text" name="username"/>
         </div>
         <div>
@@ -27,7 +27,7 @@
         </div>
         <button type="submit">Zaloguj</button>
     </form>
-    <p th:if="${param.error}">Nieprawidłowy login lub hasło</p>
+    <p th:if="${param.error}">Nieprawidłowy email lub hasło</p>
     <p th:if="${param.logout}">Wylogowano pomyślnie</p>
 </main>
 </body>

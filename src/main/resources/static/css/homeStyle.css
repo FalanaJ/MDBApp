@@ -87,7 +87,25 @@ header nav ul li a img {
     margin-bottom: 10px;
 }
 
-.btn {
+.btnNav {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 12px;
+    background-color: #49bfb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btnNav:hover {
+    background-color: #4ab7b8;
+}
+
+.txtNav {
     width: auto;
     padding: 8px 16px;
     font-size: 14px;
@@ -97,11 +115,5 @@ header nav ul li a img {
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
-    display: inline-block;
     text-align: center;
-}
-
-.btn:hover {
-    background-color: #4ab7b8;
 }

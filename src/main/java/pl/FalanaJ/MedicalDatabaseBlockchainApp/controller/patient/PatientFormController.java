@@ -3,6 +3,7 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.patient;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 
 import java.util.Date;
@@ -18,19 +21,28 @@ import java.util.Date;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/addPatient")
+@RequestMapping("admin/addPatient")
 public class PatientFormController {
 
     private final PatientService patientService;
+    private final PasswordEncoder passwordEncoder;
     @GetMapping
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
-        return "addPatient";
+        return "admin/addPatient";
     }
 
     @PostMapping
     public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors) {
-        if(errors.hasErrors()) return "addPatient";
+        if(errors.hasErrors()) return "admin/addPatient";
+
+        User user = new User();
+        user.setUsername(patient.getEmail());
+        user.setPassword(passwordEncoder.encode(patient.getPeselNumber())); // TODO TYMCZASOWE!
+        user.setRole(Role.PATIENT);
+
+        patient.setUser(user);
+        user.setPatient(patient);
 
         patient.setCreatedAt(new Date());
         patientService.save(patient);

@@ -15,10 +15,10 @@ public class DoctorListController {
 
     private final DoctorService doctorService;
 
-    @GetMapping("/doctorsList")
+    @GetMapping("/admin/doctorsList")
     public String getAllDoctorsView(Model model) {
         List<Doctor> doctors = doctorService.findAll();
         model.addAttribute("doctors", doctors);
-        return "doctorsList";
+        return "admin/doctorsList";
     }
 }

@@ -1,6 +1,5 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.config;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.CustomUserDetailsService;
 
 @Configuration
@@ -26,11 +25,8 @@ public class SpringSecurityConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/css/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/js/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/login")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/addPatient")).hasRole(Role.ADMIN.name())
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/addDoctor")).hasRole(Role.ADMIN.name())
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/patientsList")).hasRole(Role.ADMIN.name())
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/doctorsList")).hasRole(Role.ADMIN.name())
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register")).hasRole(Role.ADMIN.name())
+                        .requestMatchers("/admin/addPatient").hasRole(Role.ADMIN.name())
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
                         .anyRequest().authenticated()
                 )
@@ -46,10 +42,11 @@ public class SpringSecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
+                        .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/admin/**")))
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .userDetailsService(customUserDetailsService);
-
 
         return http.build();
     }

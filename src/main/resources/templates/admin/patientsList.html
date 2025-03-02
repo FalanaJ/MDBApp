@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctors list</title>
+    <title>MDB - patients list</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/patientListStyle.css">
 </head>
@@ -17,19 +17,19 @@
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
 
-            <li><a href="/addPatient">
+            <li><a href="/admin/addPatient">
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/patientsList">
+            <li><a href="/admin/patientsList">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
-            <li><a href="/addDoctor">
+            <li><a href="/admin/addDoctor">
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/doctorsList">
+            <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
         </ul>
@@ -37,7 +37,7 @@
 </header>
 
 <main>
-    <h1 class="centered-heading">Panel widoku doktorów w bazie danych</h1>
+    <h1 class="centered-heading">Panel widoku pacjentów w bazie danych</h1>
     <div class="table-container">
     <table>
         <thead>
@@ -45,21 +45,28 @@
             <th>Lp.</th>
             <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Specjalizacja</th>
+            <th>Data urodzenia</th>
+            <th>Płeć</th>
+            <th>PESEL</th>
             <th>Numer telefonu</th>
             <th>Email</th>
             <th>Adres zamieszkania</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="doctor : ${doctors}">
-            <td th:text="${doctor.id}"></td>
-            <td th:text="${doctor.firstName}"></td>
-            <td th:text="${doctor.lastName}"></td>
-            <td th:text="${doctor.speciality}"></td>
-            <td th:text="${doctor.phoneNumber}"></td>
-            <td th:text="${doctor.email}"></td>
-            <td th:text="${doctor.address}"></td>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+            <td th:text="${patient.firstName}"></td>
+            <td th:text="${patient.lastName}"></td>
+            <td th:text="${patient.dateOfBirth}"></td>
+            <td th:text="${patient.gender}"></td>
+            <td th:text="${patient.peselNumber}"></td>
+            <td th:text="${patient.phoneNumber}"></td>
+            <td th:text="${patient.email}"></td>
+            <td th:text="${patient.address}"></td>
+            <td><a th:href="@{/addMedicalHistory(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
+            <a th:href="@{/viewMedicalHistory(patientId=${patient.id})}" class="btn">Przeglądaj wpisy</a></td>
         </tr>
         </tbody>
     </table>

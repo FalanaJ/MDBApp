@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.MedicalHistoryStatus;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -54,6 +55,5 @@ public class MedicalHistory {
 
 }
 
-//todo ZABEZPIECZYĆ FORMULARZ 1/2 bo funkcjonuje ale tylko po stronie klienta
-//private Prescription prescription;
-//Pola związane z Blockchainem
+//1. private Prescription prescription;
+//2. Pola związane z Blockchainem

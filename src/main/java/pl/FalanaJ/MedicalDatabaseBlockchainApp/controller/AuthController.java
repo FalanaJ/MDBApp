@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.UserRepository;
 
@@ -23,11 +23,11 @@ public class AuthController {
 
     @GetMapping("/register")
     public String registerForm(){
-        return "register";
+        return "/register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam String username,
+    public String registerUser(@RequestParam String email,
                                @RequestParam String password,
                                @RequestParam String confirmPassword) {
 
@@ -36,12 +36,12 @@ public class AuthController {
             return "redirect:/register?error";
         }
 
-        if (userRepository.findByUsername(username).isPresent()) {
+        if (userRepository.findByUsername(email).isPresent()) {
             return "redirect:/register?error";
         }
 
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(Role.ADMIN);
 

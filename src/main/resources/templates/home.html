@@ -17,25 +17,26 @@
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
 
-            <li><a href="/addPatient">
+            <li><a href="/admin/addPatient">
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/patientsList">
+            <li><a href="/admin/patientsList">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
-            <li><a href="/addDoctor">
+            <li><a href="/admin/addDoctor">
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/doctorsList">
+            <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
 
             <li>
+                <span class="txtNav">Zalogowano: <span th:text="${username}"></span></span>
                 <form th:action="@{/logout}" method="post" style="display: inline;">
-                    <button type="submit" class="btn">Wyloguj</button>
+                    <button type="submit" class="btnNav">Wyloguj</button>
                 </form>
             </li>
         </ul>
@@ -44,22 +45,21 @@
 
 <main>
     <h1 class="centered-heading">Panel główny</h1>
-    <h1 class="centered-heading">Witaj <span th:text="${username}"></span>!</h1>
 
     <div class="container">
-        <a href="/addPatient" class="tile">
+        <a href="/admin/addPatient" class="tile">
             <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             <div>Dodaj pacjenta</div>
         </a>
-        <a href="/patientsList" class="tile">
+        <a href="/admin/patientsList" class="tile">
             <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             <div>Lista pacjentów</div>
         </a>
-        <a href="/addDoctor" class="tile">
+        <a href="/admin/addDoctor" class="tile">
             <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             <div>Dodaj doktora</div>
         </a>
-        <a href="/doctorsList" class="tile">
+        <a href="/admin/doctorsList" class="tile">
             <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             <div>Lista doktorów</div>
         </a>

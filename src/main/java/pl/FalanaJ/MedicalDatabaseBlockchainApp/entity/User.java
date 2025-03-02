@@ -2,6 +2,7 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 
 @Data
 @Entity
@@ -19,5 +20,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Patient patient;
 }

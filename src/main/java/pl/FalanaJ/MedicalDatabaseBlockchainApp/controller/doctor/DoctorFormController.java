@@ -18,14 +18,14 @@ import java.util.Date;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/addDoctor")
+@RequestMapping("/admin/addDoctor")
 public class DoctorFormController {
 
     public final DoctorService doctorService;
     @GetMapping
     public String addDoctor(Model model) {
         model.addAttribute("doctor", new Doctor());
-        return "addDoctor";
+        return "admin/addDoctor";
     }
 
     @PostMapping

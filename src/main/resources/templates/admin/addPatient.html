@@ -17,19 +17,19 @@
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
 
-            <li><a href="/addPatient">
+            <li><a href="/admin/addPatient">
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/patientsList">
+            <li><a href="/admin/patientsList">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
-            <li><a href="/addDoctor">
+            <li><a href="/admin/addDoctor">
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/doctorsList">
+            <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
         </ul>
@@ -39,6 +39,8 @@
     <h1 class="centered-heading">Panel dodawania nowego pacjenta</h1>
 
     <form method="post" th:object="${patient}">
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <div th:if="${#fields.hasErrors()}">
             <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
@@ -67,7 +69,6 @@
             <label for="dateOfBirth">Data urodzenia:</label>
             <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth"/>
         </div>
-
 
         <span class="validationError">
                 <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Name Error</td>
