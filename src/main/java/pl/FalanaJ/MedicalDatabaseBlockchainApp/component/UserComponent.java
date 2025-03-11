@@ -22,21 +22,31 @@ public class UserComponent implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         if (userRepository.findByUsername("admin").isEmpty()
-                && userRepository.findByUsername("patient.patient@example.com").isEmpty()) {
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("adminpassword"));
-            admin.setRole(Role.ADMIN);
+                && userRepository.findByUsername("patient.patient@example.com").isEmpty()
+                && userRepository.findByUsername("doctor.doctor@example.com").isEmpty()) {
 
-            User patient = new User();
-            patient.setUsername("patient.patient@example.com");
-            patient.setPassword(passwordEncoder.encode("patientpassword"));
-            patient.setRole(Role.PATIENT);
+            User adminTEST = new User();
+            adminTEST.setUsername("admin");
+            adminTEST.setPassword(passwordEncoder.encode("adminpassword"));
+            adminTEST.setRole(Role.ADMIN);
 
-            userRepository.save(admin);
-            userRepository.save(patient);
+            User patientTEST = new User();
+            patientTEST.setUsername("patient.patient@example.com");
+            patientTEST.setPassword(passwordEncoder.encode("patientpassword"));
+            patientTEST.setRole(Role.PATIENT);
+
+            User doctorTEST = new User();
+            doctorTEST.setUsername("doctor.doctor@example.com");
+            doctorTEST.setPassword(passwordEncoder.encode("doctorpassword"));
+            doctorTEST.setRole(Role.DOCTOR);
+
+            userRepository.save(adminTEST);
+            userRepository.save(patientTEST);
+            userRepository.save(doctorTEST);
+
             log.info("[!] Użytkownik ADMIN został utworzony.");
             log.info("[!] Użytkownik PATIENT został utworzony.");
+            log.info("[!] Użytkownik DOCTOR został utworzony.");
         }
     }
 }

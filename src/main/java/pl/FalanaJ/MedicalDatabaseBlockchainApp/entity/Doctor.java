@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -28,6 +29,10 @@ public class Doctor{
     @Pattern(regexp = "^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+$", message = "Nazwisko musi zaczynać się od wielkiej litery")
     private String speciality;
 
+    @NotBlank(message = "Podanie numeru PESEL jest obowiązkowe.")
+    @Pattern(regexp = "\\d{11}", message = "Numer PESEL musi składać się z 11 cyfr.")
+    private String peselNumber;
+
     @NotBlank(message = "Podanie numeru telefonu jest obowiązkowe.")
     @Pattern(regexp = "\\d{9}", message = "Numer telefonu musi składać się z 9 cyfr.")
     private String phoneNumber;
@@ -41,7 +46,8 @@ public class Doctor{
 
     private Date createdAt;
 
-    @OneToOne
+    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 

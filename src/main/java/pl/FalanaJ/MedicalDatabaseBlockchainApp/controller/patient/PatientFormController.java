@@ -21,7 +21,7 @@ import java.util.Date;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("admin/addPatient")
+@RequestMapping("admin/add-patient")
 public class PatientFormController {
 
     private final PatientService patientService;
@@ -29,12 +29,12 @@ public class PatientFormController {
     @GetMapping
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
-        return "admin/addPatient";
+        return "admin/add-patient";
     }
 
     @PostMapping
     public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors) {
-        if(errors.hasErrors()) return "admin/addPatient";
+        if(errors.hasErrors()) return "admin/add-patient";
 
         User user = new User();
         user.setUsername(patient.getEmail());
@@ -48,6 +48,6 @@ public class PatientFormController {
         patientService.save(patient);
 
         log.info("Nowy pacjent został dodany: " + patient);
-        return "home";
+        return "admin/patient-registered";
     }
 }

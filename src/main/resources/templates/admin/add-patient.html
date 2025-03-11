@@ -13,11 +13,11 @@
 <header>
     <nav>
         <ul>
-            <li><a href="/home">
+            <li><a href="/admin/dashboard">
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
 
-            <li><a href="/admin/addPatient">
+            <li><a href="/admin/add-patient">
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
@@ -25,7 +25,7 @@
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
-            <li><a href="/admin/addDoctor">
+            <li><a href="/admin/add-doctor">
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
@@ -40,11 +40,11 @@
 
     <form method="post" th:object="${patient}">
 
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
         <div th:if="${#fields.hasErrors()}">
             <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
         </div><br>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
         <div>
             <span class="validationError">

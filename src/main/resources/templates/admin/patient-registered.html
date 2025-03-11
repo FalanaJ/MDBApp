@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctors list</title>
+    <title>MDB - patient-registered</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/patientListStyle.css">
+    <link rel="stylesheet" href="/css/registered.css">
 </head>
 <body>
 <header>
@@ -35,37 +35,7 @@
         </ul>
     </nav>
 </header>
-
 <main>
-    <h1 class="centered-heading">Panel widoku doktorów w bazie danych</h1>
-    <div class="table-container">
-    <table>
-        <thead>
-        <tr>
-            <th>Lp.</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Specjalizacja</th>
-            <th>Numer Pesel</th>
-            <th>Numer telefonu</th>
-            <th>Email</th>
-            <th>Adres zamieszkania</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="doctor : ${doctors}">
-            <td th:text="${doctor.id}"></td>
-            <td th:text="${doctor.firstName}"></td>
-            <td th:text="${doctor.lastName}"></td>
-            <td th:text="${doctor.speciality}"></td>
-            <td th:text="${doctor.peselNumber}"></td>
-            <td th:text="${doctor.phoneNumber}"></td>
-            <td th:text="${doctor.email}"></td>
-            <td th:text="${doctor.address}"></td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
+    <h2 class="bold-green">Pacjent został dodany pomyślnie!</h2>
 </main>
 </body>
-</html>

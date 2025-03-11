@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomAuthenticationSuccessHandler;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.CustomUserDetailsService;
 
@@ -16,6 +17,7 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.CustomUserDetailsService;
 public class SpringSecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAuthenticationSuccessHandler customSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,13 +28,14 @@ public class SpringSecurityConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/js/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/login")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/register")).hasRole(Role.ADMIN.name())
-                        .requestMatchers("/admin/addPatient").hasRole(Role.ADMIN.name())
                         .requestMatchers("/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/doctor/**").hasRole(Role.DOCTOR.name())
+                        .requestMatchers("/patient/**").hasRole(Role.PATIENT.name())
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .successHandler(customSuccessHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout
