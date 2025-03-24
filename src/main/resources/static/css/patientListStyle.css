@@ -123,3 +123,35 @@ body {
     background-color: #4ab7b8;
 }
 
+.btnNav {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 12px;
+    background-color: #49bfb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btnNav:hover {
+    background-color: #4ab7b8;
+}
+
+.logoutBtn {
+    display: block;
+    width: 25px;
+    margin: 5px auto;
+    padding: 5px;
+    background-color: #49bfb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+

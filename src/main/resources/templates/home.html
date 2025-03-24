@@ -32,11 +32,11 @@
             <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
-
             <li>
-                <span class="txtNav">Zalogowano: <span th:text="${username}"></span></span>
-                <form th:action="@{/logout}" method="post" style="display: inline;">
-                    <button type="submit" class="btnNav">Wyloguj</button>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="logoutBtn" type="submit">
+                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                    </button>
                 </form>
             </li>
         </ul>

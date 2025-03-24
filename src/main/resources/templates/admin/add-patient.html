@@ -32,13 +32,20 @@
             <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="logoutBtn" type="submit">
+                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
 <main>
     <h1 class="centered-heading">Panel dodawania nowego pacjenta</h1>
 
-    <form method="post" th:object="${patient}">
+    <form class="mainForm" method="post" th:object="${patient}">
 
         <div th:if="${#fields.hasErrors()}">
             <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
@@ -113,7 +120,7 @@
             <input type="text" th:field="*{email}" id="email"/>
         </div>
 
-        <button type="submit">Dodaj pacjenta</button>
+        <button class="mainFormButton" type="submit">Dodaj pacjenta</button>
     </form>
 </main>
 </body>

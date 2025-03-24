@@ -32,6 +32,13 @@
             <li><a href="/admin/doctorsList">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="logoutBtn" type="submit">
+                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
 </header>
@@ -39,7 +46,7 @@
 <main>
     <h1 class="centered-heading">Panel dodawania doktora</h1>
 
-    <form method="post" th:object="${doctor}">
+    <form class="mainForm" method="post" th:object="${doctor}">
 
         <div th:if="${#fields.hasErrors()}">
             <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
@@ -103,7 +110,7 @@
             <input type="text" th:field="*{address}" id="address"/>
         </div>
 
-        <button type="submit">Dodaj doktora</button>
+        <button class="mainFormButton" type="submit">Dodaj doktora</button>
     </form>
 </main>
 </body>

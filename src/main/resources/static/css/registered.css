@@ -77,7 +77,8 @@ label {
 
 input[type="text"],
 input[type="date"],
-input[type="radio"] {
+input[type="radio"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -129,4 +130,18 @@ button:hover {
     font-weight: bold;
     color: red;
     text-align: center;
+}
+
+.logoutBtn {
+    display: block;
+    width: 25px;
+    margin: 5px auto;
+    padding: 5px;
+    background-color: #49bfb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    text-decoration: none;
+    cursor: pointer;
 }

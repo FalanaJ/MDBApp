@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MDB - patient-dashboard</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/homeStyle.css">
+    <link rel="stylesheet" href="/css/dashboardStyle.css">
 </head>
 <body>
 <header>
@@ -16,11 +16,11 @@
             <li><a href="/patient/dashboard">
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
-
             <li>
-                <span class="txtNav">Zalogowano: <span th:text="${username}"></span></span>
-                <form th:action="@{/logout}" method="post" style="display: inline;">
-                    <button type="submit" class="btnNav">Wyloguj</button>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="logoutBtn" type="submit">
+                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                    </button>
                 </form>
             </li>
         </ul>
@@ -28,7 +28,20 @@
 </header>
 
 <main>
-    <h1 class="centered-heading">Panel główny pacjenta</h1>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="profileMenu">
+                <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
+                <h3 th:text="${username}">Użytkownik</h3>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btnNav">Wyloguj</button>
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <h1>Panel główny pacjenta</h1>
+        </div>
+    </div>
 </main>
 </body>
 </html>
