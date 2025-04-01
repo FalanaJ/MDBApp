@@ -19,7 +19,7 @@
             <li>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
                     </button>
                 </form>
             </li>
@@ -32,7 +32,14 @@
         <div class="sidebar">
             <div class="profileMenu">
                 <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
-                <h3 th:text="${username}">Użytkownik</h3>
+                <h3 th:text="${user.username}">Użytkownik</h3>
+                <p th:if="${user.patient}">
+                    Imię i nazwisko:
+                    <span th:text="${user.patient.firstName ?: 'Nie podano'}"></span>
+                    <span th:text="${user.patient.lastName ?: 'Nie podano'}"></span><br>
+                    Data urodzenia:
+                    <span th:text="${user.patient.dateOfBirth ?: 'Nie podano'}"></span>
+                </p>
                 <form th:action="@{/logout}" method="post" style="display: inline;">
                     <button type="submit" class="btnNav">Wyloguj</button>
                 </form>
@@ -40,6 +47,10 @@
         </div>
         <div class="content">
             <h1>Panel główny pacjenta</h1>
+            <a href="/patient/medicalHistory" class="tile">
+                <img th:src="@{/images/medicalList.png}" width="40" height="40" alt="display-medical-list-icon"/>
+                <div>Historia medyczna</div>
+            </a>
         </div>
     </div>
 </main>

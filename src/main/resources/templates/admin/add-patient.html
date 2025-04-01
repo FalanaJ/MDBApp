@@ -35,7 +35,7 @@
             <li>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
                     </button>
                 </form>
             </li>
@@ -50,6 +50,9 @@
         <div th:if="${#fields.hasErrors()}">
             <span class="validationError">Usuń wymienione problemy i spróbuj ponownie.</span>
         </div><br>
+        <div th:if="${errorMessage}" style="color: red;">
+            <p class="validationError" th:text="${errorMessage}"></p>
+        </div>
 
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
@@ -97,11 +100,33 @@
         </div>
 
         <div>
-            <span class="validationError">
-                <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Name Error</td>
-            </span>
-            <label for="address">Adres zamieszkania:</label>
-            <input type="text" th:field="*{address}" id="address"/>
+            <span class="validationError" th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}">Name Error</span>
+            <label for="address.street">Ulica:</label>
+            <input type="text" th:field="*{address.street}" id="address.street"/>
+        </div>
+
+        <div>
+            <span class="validationError" th:if="${#fields.hasErrors('address.houseNumber')}" th:errors="*{address.houseNumber}">Name Error</span>
+            <label for="address.houseNumber">Numer domu:</label>
+            <input type="text" th:field="*{address.houseNumber}" id="address.houseNumber"/>
+        </div>
+
+        <div>
+            <span class="validationError" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}">Name Error</span>
+            <label for="address.city">Miasto:</label>
+            <input type="text" th:field="*{address.city}" id="address.city"/>
+        </div>
+
+        <div>
+            <span class="validationError" th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}">Name Error</span>
+            <label for="address.postalCode">Kod pocztowy:</label>
+            <input type="text" th:field="*{address.postalCode}" id="address.postalCode"/>
+        </div>
+
+        <div>
+            <span class="validationError" th:if="${#fields.hasErrors('address.country')}" th:errors="*{address.country}">Name Error</span>
+            <label for="address.country">Kraj:</label>
+            <input type="text" th:field="*{address.country}" id="address.country"/>
         </div>
 
         <div>

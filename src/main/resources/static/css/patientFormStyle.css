@@ -148,3 +148,10 @@ button:hover {
     cursor: pointer;
 }
 
+.bold-green {
+    font-weight: bold;
+    color: green;
+    text-align: center;
+}
+
+

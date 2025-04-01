@@ -15,6 +15,7 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
 import java.util.Date;
 
@@ -26,6 +27,7 @@ public class PatientFormController {
 
     private final PatientService patientService;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
     @GetMapping
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
@@ -33,8 +35,13 @@ public class PatientFormController {
     }
 
     @PostMapping
-    public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors) {
+    public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors, Model model) {
         if(errors.hasErrors()) return "admin/add-patient";
+
+        if (userService.existsByUsername(patient.getEmail())) {
+            model.addAttribute("errorMessage", "Użytkownik o podanym adresie e-mail już istnieje.");
+            return "admin/add-patient";
+        }
 
         User user = new User();
         user.setUsername(patient.getEmail());

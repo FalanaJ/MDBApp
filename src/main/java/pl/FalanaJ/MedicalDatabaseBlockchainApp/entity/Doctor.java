@@ -1,6 +1,7 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "doctors")
+@Table(name = "doctor")
 public class Doctor{
 
     @Id
@@ -41,8 +42,10 @@ public class Doctor{
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Niepoprawny adres e-mail")
     private String email;
 
-    @NotBlank(message = "Podanie adresu zamieszkania jest obowiązkowe.")
-    private String address;
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     private Date createdAt;
 

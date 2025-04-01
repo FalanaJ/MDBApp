@@ -35,7 +35,7 @@
             <li>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
                     </button>
                 </form>
             </li>
@@ -71,7 +71,8 @@
             <td th:text="${patient.peselNumber}"></td>
             <td th:text="${patient.phoneNumber}"></td>
             <td th:text="${patient.email}"></td>
-            <td th:text="${patient.address}"></td>
+            <td th:text="${patient.address != null ? patient.address.street + ' ' + patient.address.houseNumber + ', '
+            + patient.address.city + ', ' + patient.address.postalCode + ', ' + patient.address.country : 'Brak adresu'}"></td>
             <td><a th:href="@{/addMedicalHistory(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
             <a th:href="@{/viewMedicalHistory(patientId=${patient.id})}" class="btn">Przeglądaj wpisy</a></td>
         </tr>

@@ -36,7 +36,7 @@
             <li>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="40" height="40" alt="logout-icon"/>
+                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
                     </button>
                 </form>
             </li>
@@ -56,9 +56,7 @@
             </div>
         </div>
         <div class="content">
-            <h1 class="centered-heading">Panel główny administratora</h1>
-
-            <div class="container">
+            <h1>Panel główny administratora</h1>
                 <a href="/admin/add-patient" class="tile">
                     <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
                     <div>Dodaj pacjenta</div>
@@ -75,7 +73,6 @@
                     <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
                     <div>Lista doktorów</div>
                 </a>
-            </div>
         </div>
     </div>
 </main>
