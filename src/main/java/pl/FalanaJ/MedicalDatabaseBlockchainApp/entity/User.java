@@ -7,7 +7,7 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "user_account")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

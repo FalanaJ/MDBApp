@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MDB - patients list</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/patientListStyle.css">
+    <link rel="stylesheet" href="/css/patient-list-style.css">
 </head>
 <body>
 <header>
@@ -21,7 +21,7 @@
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/admin/patientsList">
+            <li><a href="/admin/patient-list">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
@@ -29,7 +29,7 @@
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/admin/doctorsList">
+            <li><a href="/admin/doctor-list">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
             <li>
@@ -73,8 +73,8 @@
             <td th:text="${patient.email}"></td>
             <td th:text="${patient.address != null ? patient.address.street + ' ' + patient.address.houseNumber + ', '
             + patient.address.city + ', ' + patient.address.postalCode + ', ' + patient.address.country : 'Brak adresu'}"></td>
-            <td><a th:href="@{/addMedicalHistory(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
-            <a th:href="@{/viewMedicalHistory(patientId=${patient.id})}" class="btn">Przeglądaj wpisy</a></td>
+            <td><a th:href="@{/add-medical-history(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
+            <a th:href="@{/view-medical-history(patientId=${patient.id})}" class="btn">Przeglądaj wpisy</a></td>
         </tr>
         </tbody>
     </table>

@@ -5,15 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - home</title>
+    <title>MDB - doctors list</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/homeStyle.css">
+    <link rel="stylesheet" href="/css/patient-list-style.css">
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li><a href="/home">
+            <li><a href="/admin/dashboard">
                 <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
             </a></li>
 
@@ -21,7 +21,7 @@
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/admin/patientsList">
+            <li><a href="/admin/patient-list">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
@@ -29,7 +29,7 @@
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/admin/doctorsList">
+            <li><a href="/admin/doctor-list">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
             <li>
@@ -44,25 +44,35 @@
 </header>
 
 <main>
-    <h1 class="centered-heading">Panel główny</h1>
-
-    <div class="container">
-        <a href="/admin/add-patient" class="tile">
-            <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
-            <div>Dodaj pacjenta</div>
-        </a>
-        <a href="/admin/patientsList" class="tile">
-            <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
-            <div>Lista pacjentów</div>
-        </a>
-        <a href="/admin/add-doctor" class="tile">
-            <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
-            <div>Dodaj doktora</div>
-        </a>
-        <a href="/admin/doctorsList" class="tile">
-            <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
-            <div>Lista doktorów</div>
-        </a>
+    <h1 class="centered-heading">Panel widoku doktorów w bazie danych</h1>
+    <div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Lp.</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Specjalizacja</th>
+            <th>Numer Pesel</th>
+            <th>Numer telefonu</th>
+            <th>Email</th>
+            <th>Adres zamieszkania</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="doctor : ${doctors}">
+            <td th:text="${doctor.id}"></td>
+            <td th:text="${doctor.firstName}"></td>
+            <td th:text="${doctor.lastName}"></td>
+            <td th:text="${doctor.speciality}"></td>
+            <td th:text="${doctor.peselNumber}"></td>
+            <td th:text="${doctor.phoneNumber}"></td>
+            <td th:text="${doctor.email}"></td>
+            <td th:text="${doctor.address != null ? doctor.address.street + ' ' + doctor.address.houseNumber + ', '
+            + doctor.address.city + ', ' + doctor.address.postalCode + ', ' + doctor.address.country : 'Brak adresu'}"></td>
+        </tr>
+        </tbody>
+    </table>
     </div>
 </main>
 </body>

@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctors list</title>
+    <title>MDB - view medical history</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/patientListStyle.css">
+    <link rel="stylesheet" href="/css/medical-history-view-style.css">
 </head>
 <body>
 <header>
@@ -21,7 +21,7 @@
                 <img th:src="@{/images/patient.png}" width="40" height="40" alt="add-patient-icon"/>
             </a></li>
 
-            <li><a href="/admin/patientsList">
+            <li><a href="/admin/patient-list">
                 <img th:src="@{/images/patientsList.png}" width="40" height="40" alt="display-patients-icon"/>
             </a></li>
 
@@ -29,7 +29,7 @@
                 <img th:src="@{/images/doctor.png}" width="40" height="40" alt="add-doctor-icon"/>
             </a></li>
 
-            <li><a href="/admin/doctorsList">
+            <li><a href="/admin/doctor-list">
                 <img th:src="@{/images/doctorsList.png}" width="40" height="40" alt="display-doctors-icon"/>
             </a></li>
             <li>
@@ -42,37 +42,39 @@
         </ul>
     </nav>
 </header>
-
 <main>
-    <h1 class="centered-heading">Panel widoku doktorów w bazie danych</h1>
+    <input type="hidden" name="patientId" th:value="${patientId}"/>
+
+    <div class="patient-info">
+        <h2>Historia medyczna pacjenta: <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span></h2>
+        <h4>PESEL: <span th:text="${patient.peselNumber}"></span></h4>
+        <a th:href="@{/add-medical-history(patientId=${patient.id})}" class="btn">Dodaj wpis</a>
+        <a href="/admin/patient-list" class="btn">Powrót do listy pacjentów</a>
+    </div>
+
     <div class="table-container">
-    <table>
-        <thead>
-        <tr>
-            <th>Lp.</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Specjalizacja</th>
-            <th>Numer Pesel</th>
-            <th>Numer telefonu</th>
-            <th>Email</th>
-            <th>Adres zamieszkania</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="doctor : ${doctors}">
-            <td th:text="${doctor.id}"></td>
-            <td th:text="${doctor.firstName}"></td>
-            <td th:text="${doctor.lastName}"></td>
-            <td th:text="${doctor.speciality}"></td>
-            <td th:text="${doctor.peselNumber}"></td>
-            <td th:text="${doctor.phoneNumber}"></td>
-            <td th:text="${doctor.email}"></td>
-            <td th:text="${doctor.address != null ? doctor.address.street + ' ' + doctor.address.houseNumber + ', '
-            + doctor.address.city + ', ' + doctor.address.postalCode + ', ' + doctor.address.country : 'Brak adresu'}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <table>
+            <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Lekarz</th>
+                <th>Data spotkania</th>
+                <th>Status</th>
+                <th>Data dodania</th>
+                <th>Powód</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history : ${medicalHistories}">
+                <td th:text="${history.id}"></td>
+                <td th:text="${history.doctorLastName}"></td>
+                <td th:text="${history.dateOfAppointment}"></td>
+                <td th:text="${history.status}"></td>
+                <td th:text="${history.createdAt}"></td>
+                <td th:text="${history.reason}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </main>
 </body>

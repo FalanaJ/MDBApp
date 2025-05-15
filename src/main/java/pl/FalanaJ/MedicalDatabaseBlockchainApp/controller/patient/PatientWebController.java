@@ -10,7 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
@@ -18,23 +17,29 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
 import java.util.Date;
-
+import java.util.List;
 @Slf4j
-@RequiredArgsConstructor
 @Controller
-@RequestMapping("admin/add-patient")
-public class PatientFormController {
+@RequiredArgsConstructor
+public class PatientWebController {
 
     private final PatientService patientService;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-    @GetMapping
+    @GetMapping("admin/patient-list")
+    public String getAllPatientsView(Model model) {
+        List<Patient> patients = patientService.findAll();
+        model.addAttribute("patients", patients);
+        return "admin/patient-list";
+    }
+
+    @GetMapping("admin/add-patient")
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "admin/add-patient";
     }
 
-    @PostMapping
+    @PostMapping("admin/add-patient")
     public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors, Model model) {
         if(errors.hasErrors()) return "admin/add-patient";
 
