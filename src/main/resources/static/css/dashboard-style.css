@@ -5,29 +5,34 @@ body {
     padding: 0;
 }
 
+/* NOWY HEADER POCZĄTEK */
 header {
-    background: linear-gradient(to right, #53e0d9, #4ab7b8);
-    color: white;
+    background-color: #e8f1f2;
+    border: 2px solid #4ab7b8;
+    color: #2c3e50;
     padding: 10px 20px;
     box-sizing: border-box;
     opacity: 0.9;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-header nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header nav ul li {
-    margin-right: 15px;
+nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 header nav ul li a {
-    color: white;
+    color: #2c3e50;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
@@ -49,6 +54,32 @@ header nav ul li a img {
     display: block;
 }
 
+.nav-left li {
+  margin-right: 20px;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  color: #2c3e50;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.logoutBtn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/* NOWY HEADER KONIEC */
+
+/* NOWE TILE I PROFILE SCREEN POCZĄTEK */
 .container {
     display: flex;
     gap: 20px;
@@ -60,10 +91,10 @@ header nav ul li a img {
 .tile {
     width: 250px;
     height: 60px;
-    color: white;
+    color: #2c3e50;
     display: flex;
-    background-color: #4ab7b8;
-    border: 2px solid #53e0d9;
+    background-color: #e8f1f2;
+    border: 2px solid #4ab7b8;
     align-items: center;
     text-decoration: none;
     font-size: 1em;
@@ -93,9 +124,8 @@ header nav ul li a img {
     width: auto;
     padding: 8px 16px;
     font-size: 12px;
-    background-color: #49bfb9;
-    color: white;
-    border: none;
+    border: 2px solid #4ab7b8;
+    color: #2c3e50;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
@@ -104,7 +134,7 @@ header nav ul li a img {
 }
 
 .btnNav:hover {
-    background-color: #4ab7b8;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .txtNav {
@@ -118,7 +148,7 @@ header nav ul li a img {
     text-decoration: none;
     font-weight: bold;
     text-align: center;
-}
+} 
 
 .dashboard {
     display: flex;
@@ -161,17 +191,4 @@ header nav ul li a img {
     flex: 1;
     padding: 20px;
 }
-
-.logoutBtn {
-    display: block;
-    width: 25px;
-    margin: 5px auto;
-    padding: 5px;
-    background-color: #49bfb9;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 10px;
-    text-decoration: none;
-    cursor: pointer;
-}
+/* NOWE TILE I PROFILE SCREEN KONIEC */

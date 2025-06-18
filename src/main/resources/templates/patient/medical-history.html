@@ -12,16 +12,13 @@
 <body>
 <header>
     <nav>
-        <ul>
-            <li><a href="/patient/dashboard">
-                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
-            </a></li>
-
+        <ul class="nav-left">
+            <li><a href="/patient/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
+        </ul>
+        <ul class="nav=right">
             <li>
                 <form th:action="@{/logout}" th:method="post">
-                    <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
-                    </button>
+                    <button class="logoutBtn" type="submit"><h3>Wyloguj</h3></button>
                 </form>
             </li>
         </ul>

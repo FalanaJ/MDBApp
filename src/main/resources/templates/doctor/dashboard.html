@@ -12,15 +12,13 @@
 <body>
 <header>
     <nav>
-        <ul>
-            <li><a href="/doctor/dashboard">
-                <img th:src="@{/images/pharmacy.png}" width="40" height="40" alt="home-icon"/>
-            </a></li>
+        <ul class="nav-left">
+            <li><a href="/doctor/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
+        </ul>
+        <ul class="nav=right">
             <li>
                 <form th:action="@{/logout}" th:method="post">
-                    <button class="logoutBtn" type="submit">
-                        <img th:src="@{/images/logout.png}" width="30" height="30" alt="logout-icon"/>
-                    </button>
+                    <button class="logoutBtn" type="submit"><h3>Wyloguj</h3></button>
                 </form>
             </li>
         </ul>
@@ -33,9 +31,6 @@
             <div class="profileMenu">
                 <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
                 <h3 th:text="${username}">Użytkownik</h3>
-                <form th:action="@{/logout}" method="post" style="display: inline;">
-                    <button type="submit" class="btnNav">Wyloguj</button>
-                </form>
             </div>
         </div>
         <div class="content">
