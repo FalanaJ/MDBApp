@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctor-dashboard</title>
+    <title>MDB - add availability</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/dashboard-style.css">
+    <link rel="stylesheet" href="/css/form-style.css">
 </head>
 <body>
 <header>
@@ -26,19 +26,30 @@
         </ul>
     </nav>
 </header>
-
 <main>
-    <div class="dashboard">
-        <div class="sidebar">
-            <div class="profileMenu">
-                <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
-                <h3 th:text="${username}">Użytkownik</h3>
-            </div>
+    <form class="mainForm" th:action="@{/doctor/availability/form}" th:object="${availability}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="form-group">
+            <label>Dzień tygodnia:</label>
+            <select th:field="*{dayOfWeek}" required>
+                <option value="">-- Wybierz dzień --</option>
+                <option th:each="day : ${daysOfWeek}" th:value="${day}" th:text="${day}">Day</option>
+            </select>
         </div>
-        <div class="content">
-            <h1>Panel główny doktora</h1>
+
+        <div>
+            <label>Od:</label>
+            <input type="time" th:field="*{startTime}" required />
         </div>
-    </div>
+
+        <div>
+            <label>Do:</label>
+            <input type="time" th:field="*{endTime}" required />
+        </div>
+
+        <button class="mainFormButton" type="submit">Dodaj dostępność</button>
+    </form>
 </main>
 </body>
 </html>

@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctor-dashboard</title>
+    <title>MDB - availability list</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/dashboard-style.css">
+    <link rel="stylesheet" href="/css/list-style.css">
 </head>
 <body>
 <header>
@@ -26,18 +26,27 @@
         </ul>
     </nav>
 </header>
-
 <main>
-    <div class="dashboard">
-        <div class="sidebar">
-            <div class="profileMenu">
-                <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
-                <h3 th:text="${username}">Użytkownik</h3>
-            </div>
-        </div>
-        <div class="content">
-            <h1>Panel główny doktora</h1>
-        </div>
+    <h1 class="centered-heading">Twoje dostępne terminy</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Dzień</th>
+                <th>Godzina rozpoczęcia</th>
+                <th>Godzina zakończenia</th>
+                <th>Edycja</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${availabilities}">
+                <td th:text="${a.dayOfWeek}"></td>
+                <td th:text="${a.startTime}"></td>
+                <td th:text="${a.endTime}"></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </main>
 </body>

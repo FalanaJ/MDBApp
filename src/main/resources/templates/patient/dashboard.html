@@ -14,6 +14,8 @@
     <nav>
         <ul class="nav-left">
             <li><a href="/patient/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
+            <li><a href="/patient/medical-history"><h4>Historia medyczna</h4></a></li>
+            <li><a href="/patient/availability/list"><h4>Lista dostępności lekarzy</h4></a></li>
         </ul>
         <ul class="nav=right">
             <li>
@@ -30,11 +32,10 @@
         <div class="sidebar">
             <div class="profileMenu">
                 <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
-                <h3 th:text="${user.username}">Użytkownik</h3>
+                <h3 th:text="${user.patient.firstName + ' ' + user.patient.lastName}">Użytkownik</h3>
                 <p th:if="${user.patient}">
-                    Imię i nazwisko:
-                    <span th:text="${user.patient.firstName ?: 'Nie podano'}"></span>
-                    <span th:text="${user.patient.lastName ?: 'Nie podano'}"></span><br>
+                    Adres email:
+                    <span th:text="${user.username}"></span>
                     Data urodzenia:
                     <span th:text="${user.patient.dateOfBirth ?: 'Nie podano'}"></span>
                 </p>

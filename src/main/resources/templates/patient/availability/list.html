@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - medical history</title>
+    <title>MDB - availability list</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/medical-history-view-style.css">
+    <link rel="stylesheet" href="/css/list-style.css">
 </head>
 <body>
 <header>
@@ -27,27 +27,27 @@
     </nav>
 </header>
 <main>
-    <h1 class="centered-heading">Twoja historia medyczna</h1>
+    <h1 class="centered-heading">Dostępne terminy lekarzy</h1>
     <div class="table-container">
         <table>
             <thead>
             <tr>
-                <th>Lp.</th>
                 <th>Lekarz</th>
-                <th>Data spotkania</th>
-                <th>Status</th>
-                <th>Data dodania</th>
-                <th>Powód</th>
+                <th>Specjalizacja</th>
+                <th>Dzień</th>
+                <th>Godzina rozpoczęcia</th>
+                <th>Godzina zakończenia</th>
+                <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="history : ${medicalHistories}">
-                <td th:text="${history.id}"></td>
-                <td th:text="${history.doctorLastName}"></td>
-                <td th:text="${history.dateOfAppointment}"></td>
-                <td th:text="${history.status}"></td>
-                <td th:text="${history.createdAt}"></td>
-                <td th:text="${history.reason}"></td>
+            <tr th:each="a : ${availabilities}">
+                <td th:text="${a.doctor.lastName} + ' ' + ${a.doctor.firstName}"></td>
+                <td th:text="${a.doctor.speciality}"></td>
+                <td th:text="${a.dayOfWeek}"></td>
+                <td th:text="${a.startTime}"></td>
+                <td th:text="${a.endTime}"></td>
+                <td></td>
             </tr>
             </tbody>
         </table>

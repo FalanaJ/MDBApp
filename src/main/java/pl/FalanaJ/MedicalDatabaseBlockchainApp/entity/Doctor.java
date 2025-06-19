@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -47,14 +48,14 @@ public class Doctor{
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    private Date createdAt;
-
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
-    //TODO pole do dodania
-    private String harmonogram;
-    //harmonogram (every Monday and Friday etc.) będzie potem
+    @OneToMany(mappedBy = "doctor")
+    private List<DoctorAvailability> availabilityList;
+
+    private Date createdAt;
+
 }

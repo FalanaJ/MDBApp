@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Doctor;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.DoctorRepository;
 
 import java.util.List;
@@ -24,5 +25,9 @@ public class DoctorService {
 
     public List<Doctor> findAll(){
         return doctorRepository.findAll();
+    }
+    public Doctor getDoctorByUser(User user){
+        return doctorRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono lekarza: " + user.getUsername()));
     }
 }
