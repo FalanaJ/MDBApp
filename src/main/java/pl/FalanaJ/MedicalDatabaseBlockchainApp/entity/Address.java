@@ -38,4 +38,12 @@ public class Address {
 
     @NotBlank(message = "Kraj nie może być pusty.")
     private String country;
+
+    public Address(String street, String houseNumber, String city, String postalCode, String country) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
+    }
 }
