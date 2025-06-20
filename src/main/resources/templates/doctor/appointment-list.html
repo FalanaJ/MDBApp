@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - availability list</title>
+    <title>MDB - doctor-dashboard</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/list-style.css">
 </head>
@@ -28,22 +28,22 @@
     </nav>
 </header>
 <main>
-    <h1 class="centered-heading">Twoje dostępne terminy</h1>
+    <h1 class="centered-heading">Twoje wizyty</h1>
     <div class="table-container">
         <table>
             <thead>
             <tr>
+                <th>Pacjent</th>
                 <th>Data</th>
-                <th>Godzina rozpoczęcia</th>
-                <th>Godzina zakończenia</th>
-                <th>Edycja</th>
+                <th>Godzina</th>
+                <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="a : ${availabilities}">
+            <tr th:each="a : ${appointments}">
+                <td th:text="${a.patient.firstName + ' ' + a.patient.lastName}"></td>
                 <td th:text="${a.date}"></td>
-                <td th:text="${a.startTime}"></td>
-                <td th:text="${a.endTime}"></td>
+                <td th:text="${a.startTime + ' - ' + a.endTime}"></td>
                 <td></td>
             </tr>
             </tbody>

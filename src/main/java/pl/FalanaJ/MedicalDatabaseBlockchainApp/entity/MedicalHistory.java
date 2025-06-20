@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.MedicalHistoryStatus;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -19,41 +18,36 @@ public class MedicalHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    @JsonBackReference
-    private Doctor doctor;
-
-    private String doctorLastName;
-
-    @NotNull(message = "Data spotkania nie może być pusta.")
-    private LocalDate dateOfAppointment;
-
-    @NotBlank(message = "Podanie powodu wizyty jest obowiązkowe.")
-    private String reason;
-
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Wybór statusu wpisu jest obowiązkowy.")
-    private MedicalHistoryStatus status;
+    private MedicalHistoryType type;
 
-    private Date createdAt;
+    @NotNull(message = "Data nie może być pusta.")
+    private LocalDate date;
+
+    @NotBlank(message = "Podanie powodu wizyty jest obowiązkowe.")
+    private String description;
+
+    @OneToOne
+    private Appointment appointment;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     @JsonBackReference
     private Patient patient;
 
+    private String blockchainHash;
+
+    private Date createdAt;
     @Override
     public String toString() {
         return "MedicalHistory{" +
                 "id=" + id +
-                ", doctor='" + doctorLastName + '\'' +
-                ", reason='" + reason + '\'' +
+                ", desc='" + description + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }
 
 }
 
-//1. private Prescription prescription;
-//2. Pola związane z Blockchainem
+//Pola innych typów

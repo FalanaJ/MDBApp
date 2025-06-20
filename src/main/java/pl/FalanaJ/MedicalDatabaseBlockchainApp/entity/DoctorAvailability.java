@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
@@ -16,9 +17,8 @@ public class DoctorAvailability {
     private Long Id;
     @ManyToOne
     private Doctor doctor;
-    @NotNull(message = "Wybór dnia tygodnia jest obowiązkowy")
-    @Enumerated(EnumType.STRING)
-    private DayOfWeek dayOfWeek;
+    @NotNull(message = "Data jest obowiązkowa")
+    private LocalDate date;
     @NotNull
     private LocalTime startTime;
     @NotNull

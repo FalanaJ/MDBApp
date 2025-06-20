@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 

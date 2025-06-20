@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomAuthenticationSuccessHandler;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.CustomUserDetailsService;
 
 @Configuration

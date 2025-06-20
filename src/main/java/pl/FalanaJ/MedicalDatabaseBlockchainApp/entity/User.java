@@ -2,9 +2,7 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.addons.Role;
 
 @Data
 @Entity

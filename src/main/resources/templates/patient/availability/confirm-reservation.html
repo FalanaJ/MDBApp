@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - medical history</title>
+    <title>MDB - confirm reservation</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/medical-history-view-style.css">
+    <link rel="stylesheet" href="/css/form-style.css">
 </head>
 <body>
 <header>
@@ -27,29 +27,17 @@
     </nav>
 </header>
 <main>
-    <h1 class="centered-heading">Twoja historia medyczna</h1>
-    <div class="table-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Lp.</th>
-                <th>Typ wpisu</th>
-                <th>Lekarz</th>
-                <th>Opis</th>
-                <th>Data</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="history, iterStat : ${medicalHistories}">
-                <td th:text="${iterStat.count}"></td>
-                <td th:text="${history.type}"></td>
-                <td th:text="${history.appointment.doctor.lastName}"></td>
-                <td th:text="${history.description}"></td>
-                <td th:text="${history.date}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <form class="mainForm" th:action="@{'/patient/availability/confirm/' + ${availability.id}}" method="post">
+        <h2>Czy na pewno chcesz zarezerwować wizytę?</h2>
+        <p>Lekarz: <span th:text="|${availability.doctor.firstName} ${availability.doctor.lastName}|"></span></p>
+        <p>Specjalizacja: <span th:text="${availability.doctor.speciality}"></span></p>
+        <p>Data: <span th:text="${availability.date}"></span></p>
+        <p>Godzina: <span th:text="${availability.startTime} + ' - ' + ${availability.endTime}"></span></p>
+        <h2>Potwierdzenie rezerwacji zostanie odnotowane w twojej historii medycznej</h2>
+        <button class="mainFormButton" type="submit">Potwierdź</button>
+        <button type="button" onclick="window.location.href='/patient/dashboard'" class="mainFormButton">Anuluj</button>
+    </form>
+
 </main>
 </body>
 </html>

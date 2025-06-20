@@ -2,9 +2,14 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.patient;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.DoctorAvailability;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorAvailabilityService;
 
 @Slf4j
@@ -17,5 +22,19 @@ public class PatientAvailabilityWebController {
     public String viewAllAvailability(Model model){
         model.addAttribute("availabilities", doctorAvailabilityService.findAll());
         return "patient/availability/list";
+    }
+
+    @GetMapping("/patient/availability/confirm-reservation/{id}")
+    public String showConfirmReservation(@PathVariable Long id, Model model) {
+        DoctorAvailability availability = doctorAvailabilityService.getById(id).orElseThrow(() -> new RuntimeException("Nie znaleziono tej dostępności"));
+        model.addAttribute("availability", availability);
+        return "patient/availability/confirm-reservation";
+    }
+
+    @PostMapping("/patient/availability/confirm/{id}")
+    public String confirmReservation(@PathVariable Long id,
+                                     @AuthenticationPrincipal CustomUserDetails userDetails) {
+        doctorAvailabilityService.reserveAppointment(id, userDetails.getUser());
+        return "redirect:/patient/dashboard";
     }
 }

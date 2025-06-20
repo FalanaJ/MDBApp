@@ -26,7 +26,6 @@ public class DoctorAvailabilityWebController {
     @GetMapping("/doctor/availability/form")
     public String showAddForm(Model model){
         model.addAttribute("availability", new DoctorAvailability());
-        model.addAttribute("daysOfWeek", DayOfWeek.values());
         return "doctor/availability/form";
     }
 

@@ -34,7 +34,7 @@
             <tr>
                 <th>Lekarz</th>
                 <th>Specjalizacja</th>
-                <th>Dzień</th>
+                <th>Data</th>
                 <th>Godzina rozpoczęcia</th>
                 <th>Godzina zakończenia</th>
                 <th>Akcje</th>
@@ -42,14 +42,17 @@
             </thead>
             <tbody>
             <tr th:each="a : ${availabilities}">
-                <td th:text="${a.doctor.lastName} + ' ' + ${a.doctor.firstName}"></td>
+                <td th:text="|${a.doctor.lastName} ${a.doctor.firstName}|"></td>
                 <td th:text="${a.doctor.speciality}"></td>
-                <td th:text="${a.dayOfWeek}"></td>
+                <td th:text="${a.date}"></td>
                 <td th:text="${a.startTime}"></td>
                 <td th:text="${a.endTime}"></td>
-                <td></td>
+                <td>
+                    <a th:href="@{'/patient/availability/confirm-reservation/' + ${a.id}}" class="btn">Zarezerwuj termin</a>
+                </td>
             </tr>
             </tbody>
+
         </table>
     </div>
 </main>

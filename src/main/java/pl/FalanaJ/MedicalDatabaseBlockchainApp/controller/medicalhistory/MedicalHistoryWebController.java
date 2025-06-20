@@ -38,11 +38,11 @@ public class MedicalHistoryWebController {
         Patient patient = patientService.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Nie ma takiego pacjenta w bazie pacjentów"));
 
-        Doctor doctor = doctorService.findById(medicalHistory.getDoctor().getId())
-                .orElseThrow(() -> new RuntimeException("Nie ma takiego doktora w bazie doktorów"));
+        //Doctor doctor = doctorService.findById(medicalHistory.getDoctor().getId())
+                //.orElseThrow(() -> new RuntimeException("Nie ma takiego doktora w bazie doktorów"));
 
         medicalHistory.setPatient(patient);
-        medicalHistory.setDoctorLastName(doctor.getLastName());
+        //medicalHistory.setDoctorLastName(doctor.getLastName());
         medicalHistory.setCreatedAt(new Date());
         medicalHistoryService.save(medicalHistory);
 
