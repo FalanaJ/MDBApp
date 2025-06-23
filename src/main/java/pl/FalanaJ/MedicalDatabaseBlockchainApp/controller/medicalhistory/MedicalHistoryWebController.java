@@ -14,6 +14,7 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalHistoryService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import java.util.Date;
 
+//TODO OUT OF DATE
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class MedicalHistoryWebController {
 
         medicalHistory.setPatient(patient);
         //medicalHistory.setDoctorLastName(doctor.getLastName());
-        medicalHistory.setCreatedAt(new Date());
+        //medicalHistory.setCreatedAt(new LocalDateTime());
         medicalHistoryService.save(medicalHistory);
 
         log.info("Nowy wpis medyczny został dodany " + medicalHistory);

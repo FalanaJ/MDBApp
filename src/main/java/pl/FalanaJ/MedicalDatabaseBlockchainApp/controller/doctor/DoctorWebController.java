@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Appointment;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Doctor;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
@@ -47,13 +44,14 @@ public class DoctorWebController {
     }
 
     @Transactional
-    @GetMapping("/doctor/appointment-list")
+    @GetMapping("/doctor/appointments")
     public String viewDoctorAppointments(Model model,
                                          @AuthenticationPrincipal CustomUserDetails userDetails) {
         Doctor doctor = userDetails.getUser().getDoctor();
         List<Appointment> appointments = appointmentRepository.findByDoctor(doctor);
         model.addAttribute("appointments", appointments);
-        return "doctor/appointment-list";
+        model.addAttribute("AppointmentStatus", AppointmentStatus.class);
+        return "doctor/appointments";
     }
     @PostMapping("/admin/add-doctor")
     public String processAddNewDoctorForm(@ModelAttribute("doctor") @Valid Doctor doctor, Errors errors, Model model) {

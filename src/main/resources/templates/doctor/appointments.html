@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - doctor-dashboard</title>
+    <title>MDB - appointments</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/list-style.css">
 </head>
@@ -16,7 +16,7 @@
             <li><a href="/doctor/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
             <li><a href="/doctor/availability/form"><h4>Dodaj dostępność</h4></a></li>
             <li><a href="/doctor/availability/list"><h4>Lista dostępności</h4></a></li>
-            <li><a href="/doctor/appointment-list"><h4>Wizyty</h4></a></li>
+            <li><a href="/doctor/appointments"><h4>Wizyty</h4></a></li>
         </ul>
         <ul class="nav=right">
             <li>
@@ -36,6 +36,7 @@
                 <th>Pacjent</th>
                 <th>Data</th>
                 <th>Godzina</th>
+                <th>Status wizyty</th>
                 <th>Akcje</th>
             </tr>
             </thead>
@@ -44,7 +45,13 @@
                 <td th:text="${a.patient.firstName + ' ' + a.patient.lastName}"></td>
                 <td th:text="${a.date}"></td>
                 <td th:text="${a.startTime + ' - ' + a.endTime}"></td>
-                <td></td>
+                <td th:text="${a.status}"></td>
+                <td>
+                    <a th:if="${a.status == AppointmentStatus.SCHEDULED}"
+                       th:href="@{'/patient/availability/cancel-reservation/' + ${a.id}}"
+                       class="btn">Anuluj wizytę (nie dziala)
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

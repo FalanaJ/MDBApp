@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - availability list</title>
+    <title>MDB - cancel reservation</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/list-style.css">
+    <link rel="stylesheet" href="/css/form-style.css">
 </head>
 <body>
 <header>
@@ -28,34 +28,17 @@
     </nav>
 </header>
 <main>
-    <h1 class="centered-heading">Dostępne terminy lekarzy</h1>
-    <div class="table-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Lekarz</th>
-                <th>Specjalizacja</th>
-                <th>Data</th>
-                <th>Godzina rozpoczęcia</th>
-                <th>Godzina zakończenia</th>
-                <th>Akcje</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="a : ${availabilities}">
-                <td th:text="|${a.doctor.lastName} ${a.doctor.firstName}|"></td>
-                <td th:text="${a.doctor.speciality}"></td>
-                <td th:text="${a.date}"></td>
-                <td th:text="${a.startTime}"></td>
-                <td th:text="${a.endTime}"></td>
-                <td>
-                    <a th:href="@{'/patient/availability/confirm-reservation/' + ${a.id}}" class="btn">Zarezerwuj termin</a>
-                </td>
-            </tr>
-            </tbody>
+    <form class="mainForm" th:action="@{'/patient/availability/cancel-confirm/' + ${appointment.id}}" method="post">
+        <h2>Czy na pewno chcesz anulować wizytę?</h2>
+        <p>Lekarz: <span th:text="|${appointment.doctor.firstName} ${appointment.doctor.lastName}|"></span></p>
+        <p>Specjalizacja: <span th:text="${appointment.doctor.speciality}"></span></p>
+        <p>Data: <span th:text="${appointment.date}"></span></p>
+        <p>Godzina: <span th:text="${appointment.startTime} + ' - ' + ${appointment.endTime}"></span></p>
+        <h2>Potwierdzenie rezerwacji zostanie odnotowane w twojej historii medycznej</h2>
+        <button class="mainFormButton" type="submit">Potwierdź anulowanie wizyty</button>
+        <button type="button" onclick="window.location.href='/patient/dashboard'" class="mainFormButton">Wróć do strony głównej</button>
+    </form>
 
-        </table>
-    </div>
 </main>
 </body>
 </html>

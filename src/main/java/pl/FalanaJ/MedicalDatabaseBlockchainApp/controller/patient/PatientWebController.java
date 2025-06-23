@@ -1,8 +1,10 @@
 package pl.FalanaJ.MedicalDatabaseBlockchainApp.controller.patient;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Patient;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
@@ -26,6 +28,7 @@ public class PatientWebController {
     private final PatientService patientService;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final AppointmentRepository appointmentRepository;
     @GetMapping("admin/patient-list")
     public String getAllPatientsView(Model model) {
         List<Patient> patients = patientService.findAll();
@@ -37,6 +40,17 @@ public class PatientWebController {
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "admin/add-patient";
+    }
+
+    @Transactional
+    @GetMapping("patient/appointments")
+    public String viewPatientAppointments(Model model,
+                                          @AuthenticationPrincipal CustomUserDetails userDetails){
+        Patient patient = userDetails.getUser().getPatient();
+        List<Appointment> appointments = appointmentRepository.findByPatient(patient);
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("AppointmentStatus", AppointmentStatus.class);
+        return "patient/appointments";
     }
 
     @PostMapping("admin/add-patient")

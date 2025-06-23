@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,8 +20,12 @@ public class MedicalHistory {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Wybór statusu wpisu jest obowiązkowy.")
+    @NotNull(message = "Wybór typu wpisu jest obowiązkowy.")
     private MedicalHistoryType type;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Wybór statusu wpisu jest obowiązkowy.")
+    private MedicalHistoryStatus status;
 
     @NotNull(message = "Data nie może być pusta.")
     private LocalDate date;
@@ -28,7 +33,7 @@ public class MedicalHistory {
     @NotBlank(message = "Podanie powodu wizyty jest obowiązkowe.")
     private String description;
 
-    @OneToOne
+    @ManyToOne
     private Appointment appointment;
 
     @ManyToOne
@@ -38,7 +43,7 @@ public class MedicalHistory {
 
     private String blockchainHash;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Override
     public String toString() {
         return "MedicalHistory{" +

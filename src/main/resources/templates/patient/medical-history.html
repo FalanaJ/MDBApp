@@ -16,6 +16,7 @@
             <li><a href="/patient/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
             <li><a href="/patient/medical-history"><h4>Historia medyczna</h4></a></li>
             <li><a href="/patient/availability/list"><h4>Lista dostępności lekarzy</h4></a></li>
+            <li><a href="/patient/appointments"><h4>Wizyty</h4></a></li>
         </ul>
         <ul class="nav=right">
             <li>
@@ -34,18 +35,22 @@
             <tr>
                 <th>Lp.</th>
                 <th>Typ wpisu</th>
+                <th>Status wpisu</th>
                 <th>Lekarz</th>
-                <th>Opis</th>
                 <th>Data</th>
+                <th>Opis wpisu medycznego</th>
+                <th>Data utworzenia wpisu</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="history, iterStat : ${medicalHistories}">
                 <td th:text="${iterStat.count}"></td>
                 <td th:text="${history.type}"></td>
-                <td th:text="${history.appointment.doctor.lastName}"></td>
-                <td th:text="${history.description}"></td>
+                <td th:text="${history.status}"></td>
+                <td th:text="${history.appointment.doctor.firstName + ' ' + history.appointment.doctor.lastName}"></td>
                 <td th:text="${history.date}"></td>
+                <td th:text="${history.description}"></td>
+                <td th:text="${#temporals.format(history.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
