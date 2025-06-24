@@ -34,6 +34,9 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status = AppointmentStatus.SCHEDULED;
 
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private MedicalNote medicalNote;
+
     private String description;
 
     private LocalDate createdAt = LocalDate.now();

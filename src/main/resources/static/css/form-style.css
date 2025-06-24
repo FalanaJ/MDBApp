@@ -216,4 +216,24 @@ option[value=""] {
     font-style: italic;
 }
 
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: vertical;
+    font-family: inherit;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4ab7b8;
+    box-shadow: 0 0 8px rgba(74, 183, 184, 0.3);
+}
+
 

@@ -48,8 +48,12 @@
                 <td th:text="${a.status}"></td>
                 <td>
                     <a th:if="${a.status == AppointmentStatus.SCHEDULED}"
+                       th:href="@{'/doctor/start-appointment/' + ${a.id}}"
+                       class="btn">Rozpocznij wizytę
+                    </a>
+                    <a th:if="${a.status == AppointmentStatus.SCHEDULED}"
                        th:href="@{'/patient/availability/cancel-reservation/' + ${a.id}}"
-                       class="btn">Anuluj wizytę (nie dziala)
+                       class="btn">Anuluj wizytę (WIP)
                     </a>
                 </td>
             </tr>

@@ -11,15 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalNoteService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +33,7 @@ public class DoctorWebController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final AppointmentRepository appointmentRepository;
+    private final MedicalNoteService medicalNoteService;
 
     @GetMapping("/admin/doctor-list")
     public String getAllDoctorsView(Model model) {
@@ -53,6 +58,27 @@ public class DoctorWebController {
         model.addAttribute("AppointmentStatus", AppointmentStatus.class);
         return "doctor/appointments";
     }
+
+    @Transactional
+    @GetMapping("/doctor/start-appointment/{id}")
+    public String viewStartAppointment(@PathVariable Long id, Model model){
+        MedicalNote note = new MedicalNote();
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        note.setAppointment(appointment);
+
+        model.addAttribute("medicalNote", note);
+        return "doctor/start-appointment";
+    }
+
+    //TODO tu do zmiany na confirm
+    @PostMapping("/doctor/start-appointment-confirm")
+    public String saveMedicalNote(@ModelAttribute("medicalNote") MedicalNote note) {
+        medicalNoteService.save(note);
+        return "redirect:/doctor/dashboard";
+    }
+
+
     @PostMapping("/admin/add-doctor")
     public String processAddNewDoctorForm(@ModelAttribute("doctor") @Valid Doctor doctor, Errors errors, Model model) {
         if(errors.hasErrors()) return "admin/add-doctor";

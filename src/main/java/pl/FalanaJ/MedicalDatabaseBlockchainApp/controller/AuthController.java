@@ -62,7 +62,6 @@ public class AuthController {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
 
         model.addAttribute("user", user);
-        model.addAttribute("username", principal.getName());
         return "doctor/dashboard";
     }
 

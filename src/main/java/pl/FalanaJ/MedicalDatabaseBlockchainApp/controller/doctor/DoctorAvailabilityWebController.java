@@ -36,10 +36,8 @@ public class DoctorAvailabilityWebController {
         Doctor doctor = doctorService.getDoctorByUser(userDetails.getUser());
         availability.setDoctor(doctor);
         doctorAvailabilityService.save(availability);
-
-        model.addAttribute("user", userDetails.getUser());
         log.info("Nowy termin dostępności został dodany przez lekarza: " + doctor.getLastName());
-        return "doctor/dashboard";
+        return "redirect:/doctor/availability/list";
     }
 
     @GetMapping("/doctor/availability/list")
