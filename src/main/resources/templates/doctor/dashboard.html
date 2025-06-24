@@ -27,13 +27,30 @@
         </ul>
     </nav>
 </header>
-
 <main>
     <div class="dashboard">
         <div class="sidebar">
             <div class="profileMenu">
                 <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
-                <h3 th:text="${username}">Użytkownik</h3>
+                <h3 th:text="${user.doctor.firstName + ' ' + user.doctor.lastName}">Użytkownik</h3>
+                <div class="profileDetails">
+                    <p>
+                        <strong>Specjalizacja:</strong>
+                        <span th:text="${user.doctor.speciality}">Nie podano</span>
+                    </p>
+                    <p>
+                        <strong>PESEL:</strong>
+                        <span th:text="${user.doctor.peselNumber}">00000000000</span>
+                    </p>
+                    <p>
+                        <strong>Adres email:</strong>
+                        <span th:text="${user.username}">adres@example.com</span>
+                    </p>
+                    <p>
+                        <strong>Telefon:</strong>
+                        <span th:text="${user.doctor.phoneNumber}">123456789</span>
+                    </p>
+                </div>
             </div>
         </div>
         <div class="content">

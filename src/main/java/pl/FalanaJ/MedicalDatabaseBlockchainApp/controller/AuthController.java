@@ -58,6 +58,10 @@ public class AuthController {
     @GetMapping("/doctor/dashboard")
     @PreAuthorize("hasRole('DOCTOR')")
     public String doctorDashboard(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
+
+        model.addAttribute("user", user);
         model.addAttribute("username", principal.getName());
         return "doctor/dashboard";
     }
@@ -65,7 +69,6 @@ public class AuthController {
     @GetMapping("/patient/dashboard")
     @PreAuthorize("hasRole('PATIENT')")
     public String patientDashboard(Model model, Principal principal) {
-
         User user = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
 

@@ -34,12 +34,37 @@
             <div class="profileMenu">
                 <img th:src="@{/images/userProfile.png}" width="200" height="200" alt="profile-icon"/>
                 <h3 th:text="${user.patient.firstName + ' ' + user.patient.lastName}">Użytkownik</h3>
-                <p th:if="${user.patient}">
-                    Adres email:
-                    <span th:text="${user.username}"></span>
-                    Data urodzenia:
-                    <span th:text="${user.patient.dateOfBirth ?: 'Nie podano'}"></span>
+                <div class="profileDetails">
+                <p>
+                    <strong>Data urodzenia:</strong>
+                    <span th:text="${user.patient.dateOfBirth ?: 'Nie podano'}">2000-01-01</span>
                 </p>
+                <p>
+                    <strong>Płeć:</strong>
+                    <span th:text="${user.patient.gender}">Nie podano</span>
+                </p>
+                <p>
+                    <strong>PESEL:</strong>
+                    <span th:text="${user.patient.peselNumber}">00000000000</span>
+                </p>
+                <p>
+                    <strong>Adres email:</strong>
+                    <span th:text="${user.username}">adres@example.com</span>
+                </p>
+                <p>
+                    <strong>Telefon:</strong>
+                    <span th:text="${user.patient.phoneNumber}">123456789</span>
+                </p>
+                <div th:if="${user.patient.address != null}">
+                    <p>
+                        <strong>Adres</strong>
+                        <span th:text="${user.patient.address.street + ' ' + user.patient.address.houseNumber}">ul. Przykładowa 1/2</span>
+                        <br/>
+                        <strong>zamieszkania:</strong>
+                        <span th:text="${user.patient.address.postalCode + ' ' + user.patient.address.city}">00-000 Miasto</span>
+                    </p>
+                </div>
+                </div>
             </div>
         </div>
         <div class="content">

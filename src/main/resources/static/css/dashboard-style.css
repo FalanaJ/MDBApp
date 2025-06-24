@@ -191,4 +191,20 @@ header nav ul li a img {
     flex: 1;
     padding: 20px;
 }
+
+.profileDetails {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.profileDetails p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.profileDetails strong {
+    color: #555;
+    display: inline-block;
+    width: 100px;
+}
 /* NOWE TILE I PROFILE SCREEN KONIEC */

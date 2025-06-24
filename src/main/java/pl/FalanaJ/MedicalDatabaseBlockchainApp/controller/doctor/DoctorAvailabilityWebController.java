@@ -31,12 +31,15 @@ public class DoctorAvailabilityWebController {
 
     @PostMapping("/doctor/availability/form")
     public String saveAvailability(@ModelAttribute DoctorAvailability availability,
-                                   @AuthenticationPrincipal CustomUserDetails userDetails) {
+                                   @AuthenticationPrincipal CustomUserDetails userDetails,
+                                   Model model) {
         Doctor doctor = doctorService.getDoctorByUser(userDetails.getUser());
         availability.setDoctor(doctor);
         doctorAvailabilityService.save(availability);
+
+        model.addAttribute("user", userDetails.getUser());
         log.info("Nowy termin dostępności został dodany przez lekarza: " + doctor.getLastName());
-        return "/doctor/dashboard";
+        return "doctor/dashboard";
     }
 
     @GetMapping("/doctor/availability/list")
