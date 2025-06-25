@@ -28,28 +28,60 @@
 </header>
 <main>
     <h1 class="centered-heading">Panel wizyty</h1>
-    <form class="mainForm" th:action="@{/doctor/start-appointment-confirm}" th:object="${medicalNote}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="form-and-history">
+        <form class="mainForm appointmentForm" th:action="@{/doctor/start-appointment-confirm}" th:object="${medicalNote}" method="post">
+            <h1 class="centered-heading">Formularz wizyty</h1>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:field="*{appointment.id}" />
 
-        <input type="hidden" th:field="*{appointment.id}" />
+            <div>
+                <label for="diagnosis">Diagnoza:</label>
+                <textarea id="diagnosis" th:field="*{diagnosis}" rows="4" cols="50" required></textarea>
+            </div>
 
-        <div>
-            <label for="diagnosis">Diagnoza:</label>
-            <textarea id="diagnosis" th:field="*{diagnosis}" rows="4" cols="50" required></textarea>
+            <div>
+                <label for="recommendations">Zalecenia:</label>
+                <textarea id="recommendations" th:field="*{recommendations}" rows="4" cols="50" required></textarea>
+            </div>
+
+            <div>
+                <label for="prescription">Recepta:</label>
+                <textarea id="prescription" th:field="*{prescription}" rows="4" cols="50"></textarea>
+            </div>
+
+            <button class="mainFormButton" type="submit">Zakończ wizytę</button>
+        </form>
+        <div class="mainForm2 historybox">
+            <h1 class="centered-heading">Historia medyczna pacjenta</h1>
+            <div th:if="${#lists.isEmpty(medicalHistoryList)}">
+                <p>Historia medyczna jest pusta.</p>
+            </div>
+            <table th:if="${!#lists.isEmpty(medicalHistoryList)}">
+                <thead>
+                <tr>
+                    <th>Lp.</th>
+                    <th>Typ wpisu</th>
+                    <th>Status wpisu</th>
+                    <th>Lekarz</th>
+                    <th>Data</th>
+                    <th>Opis</th>
+                    <th>Utworzono</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="history, iterStat : ${medicalHistoryList}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${history.type}"></td>
+                    <td th:text="${history.status}"></td>
+                    <td th:text="${history.appointment.doctor.firstName + ' ' + history.appointment.doctor.lastName}"></td>
+                    <td th:text="${history.date}"></td>
+                    <td th:text="${history.description}"></td>
+                    <td th:text="${#temporals.format(history.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div>
-            <label for="recommendations">Zalecenia:</label>
-            <textarea id="recommendations" th:field="*{recommendations}" rows="4" cols="50" required></textarea>
-        </div>
-
-        <div>
-            <label for="prescription">Recepta:</label>
-            <textarea id="prescription" th:field="*{prescription}" rows="4" cols="50"></textarea>
-        </div>
-
-        <button class="mainFormButton" type="submit">Zakończ wizytę</button>
-    </form>
+    </div>
 </main>
 </body>
 </html>

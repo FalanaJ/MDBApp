@@ -236,4 +236,77 @@ textarea:focus {
     box-shadow: 0 0 8px rgba(74, 183, 184, 0.3);
 }
 
+table {
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+th {
+    border-radius: 3px;
+    border: 2px solid #4ab7b8;
+    background-color: #e8f1f2;
+    color: #2c3e50;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+td {
+    border-radius: 3px;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+tr:nth-child(odd) {
+    background-color: #e8f1f2aa;
+}
+
+tr:nth-child(even) {
+    background-color: #e8f1f2d4;
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+td, th {
+    padding: 10px;
+}
+
+.table-container {
+    max-width: 98%;
+    margin: 5px auto;
+    overflow-x: auto;
+}
+
+.historybox {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 2px solid #4ab7b8;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 90%;
+}
+
+.form-and-history {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.mainForm2 {
+    border: 2px solid #4ab7b8;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #e8f1f2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 

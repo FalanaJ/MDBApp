@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.MedicalHistoryRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalNoteService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
@@ -32,8 +33,10 @@ public class DoctorWebController {
     private final DoctorService doctorService;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-    private final AppointmentRepository appointmentRepository;
     private final MedicalNoteService medicalNoteService;
+
+    private final AppointmentRepository appointmentRepository;
+    private final MedicalHistoryRepository medicalHistoryRepository;
 
     @GetMapping("/admin/doctor-list")
     public String getAllDoctorsView(Model model) {
@@ -67,7 +70,11 @@ public class DoctorWebController {
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
         note.setAppointment(appointment);
 
+        Patient patient = appointment.getPatient();
+        List<MedicalHistory> medicalHistoryList = medicalHistoryRepository.findByPatientId(patient.getId());
+
         model.addAttribute("medicalNote", note);
+        model.addAttribute("medicalHistoryList", medicalHistoryList);
         return "doctor/start-appointment";
     }
 
