@@ -14,9 +14,7 @@
     <nav>
         <ul class="nav-left">
             <li><a href="/admin/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
-            <li><a href="/admin/add-patient"><h4>Zarejestruj pacjenta</h4></a></li>
             <li><a href="/admin/patient-list"><h4>Lista pacjentów</h4></a></li>
-            <li><a href="/admin/add-doctor"><h4>Zarejestruj doktora</h4></a></li>
             <li><a href="/admin/doctor-list"><h4>Lista doktorów</h4></a></li>
         </ul>
         <ul class="nav=right">
@@ -31,34 +29,35 @@
 
 <main>
     <h1 class="centered-heading">Panel widoku doktorów w bazie danych</h1>
-    <div class="table-container">
-    <table>
-        <thead>
-        <tr>
-            <th>Lp.</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Specjalizacja</th>
-            <th>Numer Pesel</th>
-            <th>Numer telefonu</th>
-            <th>Email</th>
-            <th>Adres zamieszkania</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="doctor : ${doctors}">
-            <td th:text="${doctor.id}"></td>
-            <td th:text="${doctor.firstName}"></td>
-            <td th:text="${doctor.lastName}"></td>
-            <td th:text="${doctor.speciality}"></td>
-            <td th:text="${doctor.peselNumber}"></td>
-            <td th:text="${doctor.phoneNumber}"></td>
-            <td th:text="${doctor.email}"></td>
-            <td th:text="${doctor.address != null ? doctor.address.street + ' ' + doctor.address.houseNumber + ', '
-            + doctor.address.city + ', ' + doctor.address.postalCode + ', ' + doctor.address.country : 'Brak adresu'}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-container"><br>
+        <a href="/admin/add-doctor" class="btn" style="margin-left: 1mm;">Zarejestruj nowego doktora</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lp.</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Specjalizacja</th>
+                    <th>Numer Pesel</th>
+                    <th>Numer telefonu</th>
+                    <th>Email</th>
+                    <th>Adres zamieszkania</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="doctor : ${doctors}">
+                    <td th:text="${doctor.id}"></td>
+                    <td th:text="${doctor.firstName}"></td>
+                    <td th:text="${doctor.lastName}"></td>
+                    <td th:text="${doctor.speciality}"></td>
+                    <td th:text="${doctor.peselNumber}"></td>
+                    <td th:text="${doctor.phoneNumber}"></td>
+                    <td th:text="${doctor.email}"></td>
+                    <td th:text="${doctor.address != null ? doctor.address.street + ' ' + doctor.address.houseNumber + ', '
+                    + doctor.address.city + ', ' + doctor.address.postalCode + ', ' + doctor.address.country : 'Brak adresu'}"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </main>
 </body>

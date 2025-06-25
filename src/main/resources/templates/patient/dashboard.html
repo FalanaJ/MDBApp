@@ -53,7 +53,9 @@
                 </p>
                 <p>
                     <strong>Telefon:</strong>
-                    <span th:text="${user.patient.phoneNumber}">123456789</span>
+                    <span th:text="${#strings.substring(user.patient.phoneNumber, 0, 3) + '-'
+                                   + #strings.substring(user.patient.phoneNumber, 3, 6) + '-'
+                                   + #strings.substring(user.patient.phoneNumber, 6)}">123-456-789</span>
                 </p>
                 <div th:if="${user.patient.address != null}">
                     <p>
