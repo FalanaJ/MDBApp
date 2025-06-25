@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MDB - appointment details</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/list-style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul class="nav-left">
+            <li><a href="/patient/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
+            <li><a href="/patient/medical-history"><h4>Historia medyczna</h4></a></li>
+            <li><a href="/patient/availability/list"><h4>Lista dostępności lekarzy</h4></a></li>
+            <li><a href="/patient/appointments"><h4>Wizyty</h4></a></li>
+        </ul>
+        <ul class="nav=right">
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="logoutBtn" type="submit"><h3>Wyloguj</h3></button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1 class="centered-heading">Szczegóły twojej wizyty</h1>
+
+    <div class="appointment-details-box">
+        <p><strong>Data wizyty:</strong>
+            <span th:text="${appointment.date}"></span></p>
+        <p><strong>Godzina:</strong>
+            <span th:text="${appointment.startTime + ' - ' + appointment.endTime}"></span></p>
+        <p><strong>Lekarz:</strong>
+            <span th:text="${appointment.doctor.firstName + ' ' + appointment.doctor.lastName}"></span>
+        </p>
+        <p><strong>Specjalizacja:</strong> <span th:text="${appointment.doctor.speciality}"></span></p>
+        <p><strong>Status wizyty:</strong> <span th:text="${appointment.status}"></span></p>
+    </div>
+
+    <div class="medical-note-box">
+        <h2>Notatka medyczna</h2>
+        <p><strong>Diagnoza:</strong>
+            <span th:text="${appointment.medicalNote.diagnosis}"></span></p>
+        <p><strong>Zalecenia:</strong>
+            <span th:text="${appointment.medicalNote.recommendations}"></span></p>
+        <p><strong>Recepta:</strong>
+            <span th:text="${appointment.medicalNote.prescription}"></span>
+        </p>
+    </div>
+</main>
+</body>
+</html>

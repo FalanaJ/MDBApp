@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
@@ -20,6 +21,8 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -40,17 +43,6 @@ public class PatientWebController {
     public String AddNewPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "admin/add-patient";
-    }
-
-    @Transactional
-    @GetMapping("patient/appointments")
-    public String viewPatientAppointments(Model model,
-                                          @AuthenticationPrincipal CustomUserDetails userDetails){
-        Patient patient = userDetails.getUser().getPatient();
-        List<Appointment> appointments = appointmentRepository.findByPatient(patient);
-        model.addAttribute("appointments", appointments);
-        model.addAttribute("AppointmentStatus", AppointmentStatus.class);
-        return "patient/appointments";
     }
 
     @PostMapping("admin/add-patient")
@@ -75,5 +67,30 @@ public class PatientWebController {
 
         log.info("Nowy pacjent został dodany: " + patient);
         return "admin/patient-registered";
+    }
+
+    @Transactional
+    @GetMapping("patient/appointments")
+    public String viewPatientAppointments(Model model,
+                                          @AuthenticationPrincipal CustomUserDetails userDetails){
+        Patient patient = userDetails.getUser().getPatient();
+        List<Appointment> appointments = appointmentRepository.findByPatient(patient);
+
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("AppointmentStatus", AppointmentStatus.class);
+        return "patient/appointments";
+    }
+
+    @Transactional
+    @GetMapping("patient/appointment-details/{id}")
+    public String viewPatientAppointmentDetails(Model model,
+                                                @PathVariable Long id){
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        model.addAttribute("appointment", appointment);
+        //model.addAttribute("medicalNote", appointment.getMedicalNote());
+        return "patient/appointment-details";
     }
 }

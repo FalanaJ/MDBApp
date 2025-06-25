@@ -17,6 +17,7 @@ import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.MedicalHistoryRepository;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.AppointmentService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.DoctorService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.MedicalNoteService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
@@ -34,6 +35,7 @@ public class DoctorWebController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final MedicalNoteService medicalNoteService;
+    private final AppointmentService appointmentService;
 
     private final AppointmentRepository appointmentRepository;
     private final MedicalHistoryRepository medicalHistoryRepository;
@@ -49,6 +51,30 @@ public class DoctorWebController {
     public String addDoctor(Model model) {
         model.addAttribute("doctor", new Doctor());
         return "admin/add-doctor";
+    }
+
+    @PostMapping("/admin/add-doctor")
+    public String processAddNewDoctorForm(@ModelAttribute("doctor") @Valid Doctor doctor, Errors errors, Model model) {
+        if(errors.hasErrors()) return "admin/add-doctor";
+
+        if (userService.existsByUsername(doctor.getEmail())) {
+            model.addAttribute("errorMessage", "Użytkownik o podanym adresie e-mail już istnieje.");
+            return "admin/add-doctor";
+        }
+
+        User user = new User();
+        user.setUsername(doctor.getEmail());
+        user.setPassword(passwordEncoder.encode(doctor.getPeselNumber())); // TODO TYMCZASOWE!
+        user.setRole(Role.DOCTOR);
+
+        doctor.setUser(user);
+        user.setDoctor(doctor);
+
+        doctor.setCreatedAt(new Date());
+        doctorService.save(doctor);
+
+        log.info("Nowy doktor został dodany: " + doctor);
+        return "admin/doctor-registered";
     }
 
     @Transactional
@@ -79,34 +105,10 @@ public class DoctorWebController {
     }
 
     //TODO tu do zmiany na confirm
-    @PostMapping("/doctor/start-appointment-confirm")
+    @PostMapping("/doctor/start-appointment")
     public String saveMedicalNote(@ModelAttribute("medicalNote") MedicalNote note) {
+        appointmentService.finishAppointment(note.getAppointment().getId());
         medicalNoteService.save(note);
         return "redirect:/doctor/dashboard";
-    }
-
-
-    @PostMapping("/admin/add-doctor")
-    public String processAddNewDoctorForm(@ModelAttribute("doctor") @Valid Doctor doctor, Errors errors, Model model) {
-        if(errors.hasErrors()) return "admin/add-doctor";
-
-        if (userService.existsByUsername(doctor.getEmail())) {
-            model.addAttribute("errorMessage", "Użytkownik o podanym adresie e-mail już istnieje.");
-            return "admin/add-doctor";
-        }
-
-        User user = new User();
-        user.setUsername(doctor.getEmail());
-        user.setPassword(passwordEncoder.encode(doctor.getPeselNumber())); // TODO TYMCZASOWE!
-        user.setRole(Role.DOCTOR);
-
-        doctor.setUser(user);
-        user.setDoctor(doctor);
-
-        doctor.setCreatedAt(new Date());
-        doctorService.save(doctor);
-
-        log.info("Nowy doktor został dodany: " + doctor);
-        return "admin/doctor-registered";
     }
 }

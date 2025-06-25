@@ -58,7 +58,6 @@ public class AppointmentService {
         log.info("Nowy termin wizyty został zarezerwowany");
 
     }
-
     @Transactional
     public void cancelAppointment(Long appointmentId, User user){
         Appointment appointment = appointmentRepository.findById(appointmentId)
@@ -91,6 +90,38 @@ public class AppointmentService {
         doctor.getAppointments().remove(appointment);
         appointmentRepository.save(appointment);
 
-        log.info("Wizyta została anulowana przez użytkownika: " + patient.getLastName());
+        log.info("Wizyta została anulowana przez pacjenta: " + patient.getLastName());
+    }
+    @Transactional
+    public void finishAppointment(Long appointmentId){
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono wizyty o id: " + appointmentId));
+
+        Patient patient = appointment.getPatient();
+        Doctor doctor = doctorRepository.findWithAppointmentsById(appointment.getDoctor().getId())
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono doktora"));
+
+        String doctorFirstName = appointment.getDoctor().getFirstName();
+        String doctorLastName = appointment.getDoctor().getLastName();
+        String doctorSpeciality = appointment.getDoctor().getSpeciality();
+
+        appointment.setStatus(AppointmentStatus.COMPLETED);
+
+        MedicalHistory history = new MedicalHistory();
+        history.setType(MedicalHistoryType.APPOINTMENT);
+        history.setDescription("Zakończona wizyta u " + doctorFirstName + " " + doctorLastName
+                + " (" + doctorSpeciality + ") w dniu " + appointment.getDate());
+        history.setDate(appointment.getDate());
+        history.setAppointment(appointment);
+        history.setPatient(appointment.getPatient());
+        history.setCreatedAt(LocalDateTime.now());
+        history.setStatus(MedicalHistoryStatus.COMPLETED);
+
+        patient.getMedicalHistories().add(history);
+        patient.getAppointments().remove(appointment);
+        doctor.getAppointments().remove(appointment);
+        appointmentRepository.save(appointment);
+
+        log.info("Wizyta pacjenta " + patient.getLastName() + " została zakończona.");
     }
 }

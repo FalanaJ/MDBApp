@@ -52,7 +52,7 @@ public class PatientAvailabilityWebController {
 
     @PostMapping("/patient/availability/cancel-confirm/{id}")
     public String confirmCancelReservation(@PathVariable Long id,
-                                     @AuthenticationPrincipal CustomUserDetails userDetails) {
+                                           @AuthenticationPrincipal CustomUserDetails userDetails) {
         appointmentService.cancelAppointment(id, userDetails.getUser());
         return "redirect:/patient/dashboard";
     }

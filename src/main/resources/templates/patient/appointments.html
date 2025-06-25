@@ -51,6 +51,10 @@
                        th:href="@{'/patient/availability/cancel-reservation/' + ${a.id}}"
                        class="btn">Anuluj wizytę
                     </a>
+                        <a th:if="${a.status == AppointmentStatus.COMPLETED}"
+                       th:href="@{'/patient/appointment-details/' + ${a.id}}"
+                       class="btn">Szczegóły wizyty
+                    </a>
                 </td>
             </tr>
             </tbody>
