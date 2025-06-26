@@ -9,16 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -71,13 +69,30 @@ public class PatientWebController {
 
     @Transactional
     @GetMapping("patient/appointments")
-    public String viewPatientAppointments(Model model,
+    public String viewPatientAppointments(@RequestParam(defaultValue = "date") String sort,
+                                          @RequestParam(defaultValue = "asc") String dir,
+                                          Model model,
                                           @AuthenticationPrincipal CustomUserDetails userDetails){
         Patient patient = userDetails.getUser().getPatient();
         List<Appointment> appointments = appointmentRepository.findByPatient(patient);
 
+        Comparator<Appointment> comparator = switch (sort) {
+            case "doctor" -> Comparator.comparing(a -> a.getDoctor().getLastName(), String.CASE_INSENSITIVE_ORDER);
+            case "status" -> Comparator.comparing(Appointment::getStatus);
+            case "time" -> Comparator.comparing(Appointment::getStartTime);
+            default -> Comparator.comparing(Appointment::getDate);
+        };
+
+        if (dir.equalsIgnoreCase("desc")) {
+            comparator = comparator.reversed();
+        }
+
+        appointments.sort(comparator);
+
         model.addAttribute("appointments", appointments);
         model.addAttribute("AppointmentStatus", AppointmentStatus.class);
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
         return "patient/appointments";
     }
 
@@ -90,7 +105,6 @@ public class PatientWebController {
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
         model.addAttribute("appointment", appointment);
-        //model.addAttribute("medicalNote", appointment.getMedicalNote());
         return "patient/appointment-details";
     }
 }

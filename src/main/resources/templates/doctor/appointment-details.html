@@ -13,10 +13,9 @@
 <header>
     <nav>
         <ul class="nav-left">
-            <li><a href="/patient/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
-            <li><a href="/patient/medical-history"><h4>Historia medyczna</h4></a></li>
-            <li><a href="/patient/availability/list"><h4>Lista dostępności lekarzy</h4></a></li>
-            <li><a href="/patient/appointments"><h4>Wizyty</h4></a></li>
+            <li><a href="/doctor/dashboard"><img th:src="@{/images/pharmacy.png}" width="50" height="50" alt="home-icon"/></a></li>
+            <li><a href="/doctor/availability/list"><h4>Dostępność</h4></a></li>
+            <li><a href="/doctor/appointments"><h4>Wizyty</h4></a></li>
         </ul>
         <ul class="nav=right">
             <li>
@@ -36,10 +35,9 @@
             <span th:text="${appointment.date}"></span></p>
         <p><strong>Godzina:</strong>
             <span th:text="${appointment.startTime + ' - ' + appointment.endTime}"></span></p>
-        <p><strong>Lekarz:</strong>
-            <span th:text="${appointment.doctor.firstName + ' ' + appointment.doctor.lastName}"></span>
+        <p><strong>Pacjent:</strong>
+            <span th:text="${appointment.patient.firstName + ' ' + appointment.patient.lastName}"></span>
         </p>
-        <p><strong>Specjalizacja:</strong> <span th:text="${appointment.doctor.speciality}"></span></p>
     </div>
 
     <div class="medical-note-box">

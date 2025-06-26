@@ -101,6 +101,7 @@ public class DoctorWebController {
 
         model.addAttribute("medicalNote", note);
         model.addAttribute("medicalHistoryList", medicalHistoryList);
+        model.addAttribute("appointmentStatus", AppointmentStatus.class);
         return "doctor/start-appointment";
     }
 
@@ -110,5 +111,17 @@ public class DoctorWebController {
         appointmentService.finishAppointment(note.getAppointment().getId());
         medicalNoteService.save(note);
         return "redirect:/doctor/dashboard";
+    }
+
+    @Transactional
+    @GetMapping("doctor/appointment-details/{id}")
+    public String viewDoctorAppointmentDetails(Model model,
+                                                @PathVariable Long id){
+
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        model.addAttribute("appointment", appointment);
+        return "doctor/appointment-details";
     }
 }

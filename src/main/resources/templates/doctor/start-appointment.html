@@ -66,10 +66,12 @@
                     <th>Data</th>
                     <th>Opis</th>
                     <th>Utworzono</th>
+                    <th>Szczegóły</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="history, iterStat : ${medicalHistoryList}">
+                <tr th:each="history, iterStat : ${medicalHistoryList}"
+                    th:if="${history.appointment.status == appointmentStatus.COMPLETED}">
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${history.type}"></td>
                     <td th:text="${history.status}"></td>
@@ -77,6 +79,12 @@
                     <td th:text="${history.date}"></td>
                     <td th:text="${history.description}"></td>
                     <td th:text="${#temporals.format(history.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td>
+                        <a th:if="${history.appointment.status == appointmentStatus.COMPLETED}"
+                           th:href="@{'/doctor/appointment-details/' + ${history.appointment.id}}"
+                           class="btn">Szczegóły
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

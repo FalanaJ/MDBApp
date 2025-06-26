@@ -33,10 +33,26 @@
         <table>
             <thead>
             <tr>
-                <th>Lekarz</th>
-                <th>Data</th>
-                <th>Godzina</th>
-                <th>Status wizyty</th>
+                <th>
+                    <a th:href="@{'/patient/appointments?sort=doctor&dir=' + ${sort == 'doctor' and dir == 'asc' ? 'desc' : 'asc'}}">
+                        Lekarz
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{'/patient/appointments?sort=date&dir=' + ${sort == 'date' and dir == 'asc' ? 'desc' : 'asc'}}">
+                        Data
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{'/patient/appointments?sort=time&dir=' + ${sort == 'time' and dir == 'asc' ? 'desc' : 'asc'}}">
+                        Godzina
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{'/patient/appointments?sort=status&dir=' + ${sort == 'status' and dir == 'asc' ? 'desc' : 'asc'}}">
+                        Status wizyty
+                    </a>
+                </th>
                 <th>Akcje</th>
             </tr>
             </thead>
