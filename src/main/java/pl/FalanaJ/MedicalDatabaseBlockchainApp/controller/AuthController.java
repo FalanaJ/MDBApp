@@ -9,12 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.Role;
-import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.User;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.PatientRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.UserRepository;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +27,7 @@ public class AuthController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PatientRepository patientRepository;
     @GetMapping("/login")
     public String loginForm(){
         return "login";
@@ -71,6 +77,17 @@ public class AuthController {
         User user = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
 
+        Patient patientWithAppointments = patientRepository.findWithAppointmentsById(user.getPatient().getId())
+                        .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+        List<Appointment> upcomingAppointments = patientWithAppointments.getAppointments().stream()
+                .filter(x -> x.getStatus() == AppointmentStatus.SCHEDULED)
+                .sorted(Comparator.comparing(Appointment::getDate)
+                        .thenComparing(Appointment::getStartTime))
+                .limit(4)
+                .toList();
+
+        model.addAttribute("appointments", upcomingAppointments);
         model.addAttribute("user", user);
         return "patient/dashboard";
     }

@@ -75,6 +75,28 @@
                 <img th:src="@{/images/medicalList.png}" width="40" height="40" alt="display-medical-list-icon"/>
                 <div>Historia medyczna</div>
             </a>
+
+            <div>
+                <h1 class="centered-heading">Twoje nadchodzące wizyty</h1>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Lekarz</th>
+                            <th>Data</th>
+                            <th>Godzina</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="a : ${appointments}">
+                            <td th:text="${a.doctor.firstName + ' ' + a.doctor.lastName}"></td>
+                            <td th:text="${a.date}"></td>
+                            <td th:text="${a.startTime + ' - ' + a.endTime}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </main>
