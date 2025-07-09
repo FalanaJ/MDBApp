@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.*;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.utils.BlockchainUtil;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+    private final BlockchainService blockchainService;
 
     public Optional<Appointment> getById(Long appointmentId){return appointmentRepository.findById(appointmentId);}
     @Transactional
@@ -31,23 +33,14 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findWithAppointmentsById(availability.getDoctor().getId())
                 .orElseThrow(() -> new RuntimeException("Nie znaleziono doktora"));
 
-        Appointment appointment = new Appointment();
-        appointment.setDoctor(availability.getDoctor());
-        appointment.setPatient(user.getPatient());
-        appointment.setDate(availability.getDate());
-        appointment.setStartTime(availability.getStartTime());
-        appointment.setEndTime(availability.getEndTime());
-        appointment.setStatus(AppointmentStatus.SCHEDULED);
+        Appointment appointment = new Appointment(availability.getDoctor(), user.getPatient(), availability.getDate(),
+                                                  availability.getStartTime(), availability.getEndTime(), AppointmentStatus.SCHEDULED);
 
-        MedicalHistory history = new MedicalHistory();
-        history.setType(MedicalHistoryType.APPOINTMENT);
+        MedicalHistory history = new MedicalHistory(MedicalHistoryType.APPOINTMENT, appointment, appointment.getDate(),
+                                                    user.getPatient(), LocalDateTime.now(), MedicalHistoryStatus.SCHEDULED);
         history.setDescription("Zaplanowana wizyta u " + availability.getDoctor().getSpeciality() +
                 " " + availability.getDoctor().getLastName());
-        history.setDate(appointment.getDate());
-        history.setAppointment(appointment);
-        history.setPatient(user.getPatient());
-        history.setCreatedAt(LocalDateTime.now());
-        history.setStatus(MedicalHistoryStatus.SCHEDULED);
+        blockchainService.signMedicalHistory(history, patient);
 
         doctor.getAppointments().add(appointment);
         patient.getAppointments().add(appointment);
@@ -72,18 +65,13 @@ public class AppointmentService {
         String doctorFirstName = appointment.getDoctor().getFirstName();
         String doctorLastName = appointment.getDoctor().getLastName();
         String doctorSpeciality = appointment.getDoctor().getSpeciality();
-
         appointment.setStatus(AppointmentStatus.CANCELED);
 
-        MedicalHistory history = new MedicalHistory();
-        history.setType(MedicalHistoryType.APPOINTMENT);
+        MedicalHistory history = new MedicalHistory(MedicalHistoryType.APPOINTMENT, appointment, appointment.getDate(),
+                                                    user.getPatient(), LocalDateTime.now(), MedicalHistoryStatus.CANCELED);
         history.setDescription("Anulowana wizyta u " + doctorFirstName + " " + doctorLastName
                 + " (" + doctorSpeciality + ") w dniu " + appointment.getDate());
-        history.setDate(appointment.getDate());
-        history.setAppointment(appointment);
-        history.setPatient(user.getPatient());
-        history.setCreatedAt(LocalDateTime.now());
-        history.setStatus(MedicalHistoryStatus.CANCELED);
+        blockchainService.signMedicalHistory(history, patient);
 
         patient.getMedicalHistories().add(history);
         patient.getAppointments().remove(appointment);
@@ -107,21 +95,16 @@ public class AppointmentService {
 
         appointment.setStatus(AppointmentStatus.COMPLETED);
 
-        MedicalHistory history = new MedicalHistory();
-        history.setType(MedicalHistoryType.APPOINTMENT);
+        MedicalHistory history = new MedicalHistory(MedicalHistoryType.APPOINTMENT, appointment, appointment.getDate(),
+                                                    appointment.getPatient(), LocalDateTime.now(), MedicalHistoryStatus.COMPLETED);
         history.setDescription("Zakończona wizyta u " + doctorFirstName + " " + doctorLastName
                 + " (" + doctorSpeciality + ") w dniu " + appointment.getDate());
-        history.setDate(appointment.getDate());
-        history.setAppointment(appointment);
-        history.setPatient(appointment.getPatient());
-        history.setCreatedAt(LocalDateTime.now());
-        history.setStatus(MedicalHistoryStatus.COMPLETED);
+        blockchainService.signMedicalHistory(history, patient);
 
         patient.getMedicalHistories().add(history);
         patient.getAppointments().remove(appointment);
         doctor.getAppointments().remove(appointment);
         appointmentRepository.save(appointment);
-
         log.info("Wizyta pacjenta " + patient.getLastName() + " została zakończona.");
     }
 }

@@ -29,6 +29,16 @@
 </header>
 <main>
     <h1 class="centered-heading">Twoja historia medyczna</h1>
+
+    <div th:if="${isBlockchainValid}" class="blockchain-alert success">
+        <span>Dane medyczne pacjenta są prawidłowe i nie zostały naruszone.</span>
+    </div>
+
+    <!-- Komunikat o błędzie integralności -->
+    <div th:if="${!isBlockchainValid}" class="blockchain-alert error">
+        <span>Uwaga! Wykryto naruszenie integralności historii medycznej pacjenta.</span>
+    </div>
+
     <div class="table-container">
         <table>
             <thead>

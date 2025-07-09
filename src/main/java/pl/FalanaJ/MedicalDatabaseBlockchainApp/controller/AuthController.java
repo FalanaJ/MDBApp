@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.PatientRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.UserRepository;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.BlockchainService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.utils.BlockchainUtil;
 
 import java.security.Principal;
 import java.util.Collections;
@@ -90,22 +92,6 @@ public class AuthController {
         model.addAttribute("appointments", upcomingAppointments);
         model.addAttribute("user", user);
         return "patient/dashboard";
-    }
-
-    @GetMapping("patient/medical-history")
-    @PreAuthorize("hasRole('PATIENT')")
-    public String patientMedicalHistory(Model model, Principal principal) {
-
-        User user = userRepository.findByUsername(principal.getName())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
-
-        if (user.getPatient() != null) {
-            model.addAttribute("medicalHistories", user.getPatient().getMedicalHistories());
-        } else {
-            model.addAttribute("medicalHistories", Collections.emptyList());
-        }
-
-        return "patient/medical-history";
     }
 
     @GetMapping("/admin/dashboard")

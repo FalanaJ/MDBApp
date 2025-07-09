@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.component.CustomUserDetails;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.entity.*;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.AppointmentRepository;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.repository.UserRepository;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.PatientService;
 import pl.FalanaJ.MedicalDatabaseBlockchainApp.service.UserService;
+import pl.FalanaJ.MedicalDatabaseBlockchainApp.utils.BlockchainUtil;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.security.Principal;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -30,6 +32,7 @@ public class PatientWebController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
     @GetMapping("admin/patient-list")
     public String getAllPatientsView(Model model) {
         List<Patient> patients = patientService.findAll();
@@ -106,5 +109,22 @@ public class PatientWebController {
 
         model.addAttribute("appointment", appointment);
         return "patient/appointment-details";
+    }
+
+    @GetMapping("patient/medical-history")
+    public String patientMedicalHistory(Model model, Principal principal) {
+
+        User user = userRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + principal.getName()));
+
+        System.out.println("Blockchain pacjenta: " + user.getUsername());
+        Patient patient = user.getPatient();
+        List<MedicalHistory> histories = patient.getMedicalHistories();
+        boolean isValid = BlockchainUtil.isChainValid(histories);
+
+        model.addAttribute("medicalHistories", histories);
+        model.addAttribute("isBlockchainValid", isValid);
+
+        return "patient/medical-history";
     }
 }

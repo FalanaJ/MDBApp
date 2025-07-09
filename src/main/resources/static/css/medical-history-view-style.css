@@ -157,3 +157,24 @@ td, th {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.blockchain-alert {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.blockchain-alert.success {
+    background-color: #e6ffed;
+    color: #155724;
+}
+
+.blockchain-alert.error {
+    background-color: #ffe6e6;
+    color: #721c24;
+}
+

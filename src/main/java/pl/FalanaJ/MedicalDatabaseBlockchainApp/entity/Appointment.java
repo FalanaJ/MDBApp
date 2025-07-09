@@ -2,12 +2,14 @@ package pl.FalanaJ.MedicalDatabaseBlockchainApp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "appointment")
 public class Appointment {
     @Id
@@ -37,7 +39,15 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
     private MedicalNote medicalNote;
 
-    private String description;
-
     private LocalDate createdAt = LocalDate.now();
+
+    public Appointment(Doctor doctor, Patient patient, LocalDate date,
+                       LocalTime startTime, LocalTime endTime, AppointmentStatus status) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+    }
 }
