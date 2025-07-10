@@ -27,49 +27,8 @@ import java.util.*;
 @Controller
 @RequiredArgsConstructor
 public class PatientWebController {
-
-    private final PatientService patientService;
-    private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
-    @GetMapping("admin/patient-list")
-    public String getAllPatientsView(Model model) {
-        List<Patient> patients = patientService.findAll();
-        model.addAttribute("patients", patients);
-        return "admin/patient-list";
-    }
-
-    @GetMapping("admin/add-patient")
-    public String AddNewPatientForm(Model model) {
-        model.addAttribute("patient", new Patient());
-        return "admin/add-patient";
-    }
-
-    @PostMapping("admin/add-patient")
-    public String processAddNewPatientForm(@ModelAttribute("patient") @Valid Patient patient, Errors errors, Model model) {
-        if(errors.hasErrors()) return "admin/add-patient";
-
-        if (userService.existsByUsername(patient.getEmail())) {
-            model.addAttribute("errorMessage", "Użytkownik o podanym adresie e-mail już istnieje.");
-            return "admin/add-patient";
-        }
-
-        User user = new User();
-        user.setUsername(patient.getEmail());
-        user.setPassword(passwordEncoder.encode(patient.getPeselNumber())); // TODO TYMCZASOWE!
-        user.setRole(Role.PATIENT);
-
-        patient.setUser(user);
-        user.setPatient(patient);
-
-        patient.setCreatedAt(new Date());
-        patientService.save(patient);
-
-        log.info("Nowy pacjent został dodany: " + patient);
-        return "admin/patient-registered";
-    }
-
     @Transactional
     @GetMapping("patient/appointments")
     public String viewPatientAppointments(@RequestParam(defaultValue = "date") String sort,
@@ -98,7 +57,6 @@ public class PatientWebController {
         model.addAttribute("dir", dir);
         return "patient/appointments";
     }
-
     @Transactional
     @GetMapping("patient/appointment-details/{id}")
     public String viewPatientAppointmentDetails(Model model,
@@ -110,7 +68,6 @@ public class PatientWebController {
         model.addAttribute("appointment", appointment);
         return "patient/appointment-details";
     }
-
     @GetMapping("patient/medical-history")
     public String patientMedicalHistory(Model model, Principal principal) {
 

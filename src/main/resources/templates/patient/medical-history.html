@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MDB - medical history</title>
+    <title>Historia medyczna | MDB</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/medical-history-view-style.css">
 </head>
@@ -31,12 +31,11 @@
     <h1 class="centered-heading">Twoja historia medyczna</h1>
 
     <div th:if="${isBlockchainValid}" class="blockchain-alert success">
-        <span>Dane medyczne pacjenta są prawidłowe i nie zostały naruszone.</span>
+        <span>Dane medyczne są prawidłowe i nie zostały naruszone.</span>
     </div>
 
-    <!-- Komunikat o błędzie integralności -->
     <div th:if="${!isBlockchainValid}" class="blockchain-alert error">
-        <span>Uwaga! Wykryto naruszenie integralności historii medycznej pacjenta.</span>
+        <span>Uwaga! Wykryto naruszenie integralności historii medycznej.</span>
     </div>
 
     <div class="table-container">

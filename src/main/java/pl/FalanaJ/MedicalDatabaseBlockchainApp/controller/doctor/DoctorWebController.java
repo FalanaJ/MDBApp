@@ -30,52 +30,10 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class DoctorWebController {
-
-    private final DoctorService doctorService;
-    private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
     private final MedicalNoteService medicalNoteService;
     private final AppointmentService appointmentService;
-
     private final AppointmentRepository appointmentRepository;
     private final MedicalHistoryRepository medicalHistoryRepository;
-
-    @GetMapping("/admin/doctor-list")
-    public String getAllDoctorsView(Model model) {
-        List<Doctor> doctors = doctorService.findAll();
-        model.addAttribute("doctors", doctors);
-        return "admin/doctor-list";
-    }
-
-    @GetMapping("/admin/add-doctor")
-    public String addDoctor(Model model) {
-        model.addAttribute("doctor", new Doctor());
-        return "admin/add-doctor";
-    }
-
-    @PostMapping("/admin/add-doctor")
-    public String processAddNewDoctorForm(@ModelAttribute("doctor") @Valid Doctor doctor, Errors errors, Model model) {
-        if(errors.hasErrors()) return "admin/add-doctor";
-
-        if (userService.existsByUsername(doctor.getEmail())) {
-            model.addAttribute("errorMessage", "Użytkownik o podanym adresie e-mail już istnieje.");
-            return "admin/add-doctor";
-        }
-
-        User user = new User();
-        user.setUsername(doctor.getEmail());
-        user.setPassword(passwordEncoder.encode(doctor.getPeselNumber())); // TODO TYMCZASOWE!
-        user.setRole(Role.DOCTOR);
-
-        doctor.setUser(user);
-        user.setDoctor(doctor);
-
-        doctor.setCreatedAt(new Date());
-        doctorService.save(doctor);
-
-        log.info("Nowy doktor został dodany: " + doctor);
-        return "admin/doctor-registered";
-    }
 
     @Transactional
     @GetMapping("/doctor/appointments")
@@ -87,7 +45,6 @@ public class DoctorWebController {
         model.addAttribute("AppointmentStatus", AppointmentStatus.class);
         return "doctor/appointments";
     }
-
     @Transactional
     @GetMapping("/doctor/start-appointment/{id}")
     public String viewStartAppointment(@PathVariable Long id, Model model){
@@ -104,15 +61,12 @@ public class DoctorWebController {
         model.addAttribute("appointmentStatus", AppointmentStatus.class);
         return "doctor/start-appointment";
     }
-
-    //TODO tu do zmiany na confirm
     @PostMapping("/doctor/start-appointment")
     public String saveMedicalNote(@ModelAttribute("medicalNote") MedicalNote note) {
         appointmentService.finishAppointment(note.getAppointment().getId());
         medicalNoteService.save(note);
         return "redirect:/doctor/dashboard";
     }
-
     @Transactional
     @GetMapping("doctor/appointment-details/{id}")
     public String viewDoctorAppointmentDetails(Model model,

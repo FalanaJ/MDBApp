@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class BlockchainUtil {
-
     public static String generateHash(String data){
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -19,7 +18,6 @@ public class BlockchainUtil {
             throw new RuntimeException("SHA-256 not available", e);
         }
     }
-
     public static String prepareMedicalHistoryData(MedicalHistory history, String previousHash) {
         return history.getType() + "|" +
                 history.getStatus() + "|" +
@@ -29,7 +27,6 @@ public class BlockchainUtil {
                 (history.getAppointment() != null ? history.getAppointment().getDoctor().getId() : "null") + "|" +
                 previousHash;
     }
-
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
         for (byte b : hash) {
@@ -40,7 +37,6 @@ public class BlockchainUtil {
         }
         return hexString.toString();
     }
-
     public static boolean isChainValid(List<MedicalHistory> historyList){
         String previousHash = "0";
         for (MedicalHistory history : historyList) {
